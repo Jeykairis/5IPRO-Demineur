@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Style pour la grille de jeu */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(10, 1fr);
+        gap: 2px;
+        margin: 20px;
+      }
+
+      /* Style pour les cases de jeu */
+      .grid-item {
+        background-color: #ddd;
+        border: 1px solid #aaa;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Grille de jeu -->
+    <div class="grid">
+      <!-- Boucle pour générer les cases -->
+      <?php
+        for ($i = 0; $i < 100; $i++) {
+          echo '<div class="grid-item"></div>';
+        }
+      ?>
+    </div>
+
+    <!-- Script pour gérer le comportement de jeu -->
+    <script>
+      // Référence à la grille de jeu
+      const grid = document.querySelector('.grid');
+
+      // Ajout d'un événement de clic sur les cases
+      grid.addEventListener('click', (event) => {
+        // Vérification si la case cliquée est une case de jeu
+        if (event.target.classList.contains('grid-item')) {
+          // Modification de la couleur de fond pour indiquer une action
+          event.target.style.backgroundColor = 'red';
+        }
+      });
+    </script>
+  </body>
+</html>
