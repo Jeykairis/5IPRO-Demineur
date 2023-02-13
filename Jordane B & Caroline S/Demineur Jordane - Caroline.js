@@ -32,3 +32,26 @@ un multiple de 5, afficher "Coucou" et si celui-ci est un multiple de 7 , affich
 	  }
 	 **/
 
+      
+
+function tableau()
+{
+    var compteur=0;
+    var tab=[1,1,1,2,2,3,3,3,3,4,5,5,5,5]
+    var choix=prompt('Choisir un nombre entre 1 et 5')
+        for(var i = 0; i< tab.length; i++)
+        {
+            if (choix==tab[i])
+            {
+            compteur++
+            }
+             
+            
+            
+        }
+console.log(choix+' apparait '+compteur,' fois');
+
+}
+tableau()
+
+
