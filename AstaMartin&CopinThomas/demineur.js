@@ -36,7 +36,7 @@ function createGrid(a) {
     for (let j = 0; j < a; j++) {
         grid.push([]);
         for (let i = 0; i < a; i++) {
-            grid[j].push("0");
+            grid[j].push(0);
         }
     }
     return grid;
