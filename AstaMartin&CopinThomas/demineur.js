@@ -8,8 +8,6 @@ function main() {
     for (let i = 0; i < bombs.length; i++) {
         grid[bombs[i][0]][bombs[i][1]] = "X";
     }
-    fixeIndexesY(grid);
-    fixeIndexesX(grid);
     console.log(grid);
 }
 
@@ -20,12 +18,24 @@ function main() {
  */
 function setBombs(numberOfBombs) {
     let posOfBombs = [];
-    for (let i = 0; i < numberOfBombs; i++) {
-        posOfBombs.push([]);
-        posOfBombs[i].push(Math.floor(Math.random() * (numberOfBombs - 0)) + 0);
-        posOfBombs[i].push(Math.floor(Math.random() * (numberOfBombs - 0)) + 0);
+    let i = 0;
+    while(posOfBombs.length < numberOfBombs){
+        let newPos = [Math.floor(Math.random() * (numberOfBombs - 0)) + 0, Math.floor(Math.random() * (numberOfBombs - 0)) + 0];
+        if(!includesPair(posOfBombs,newPos)){
+            posOfBombs.push(newPos);
+            i++;
+        }
     }
     return posOfBombs;
+}
+
+function includesPair(posOfBombs, pair){
+    for(let i = 0; i < posOfBombs.length; i++){
+        if(pair[0] == posOfBombs[i][0] && pair[1] == posOfBombs[i][1]){
+            return true;
+        }
+    }
+    return false;
 }
 
 /** Cette fonction sert à créer une grille de jeu pour le demineur d'une dimension demandée à l'utilisateur.
@@ -42,42 +52,6 @@ function createGrid(a) {
         }
     }
     return grid;
-}
-
-function fixeIndexesY(grid) {
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid.length; j++) {
-            if (grid[j][i] != "X") {
-                if (j != 0) {
-                    if (grid[j - 1][i] == "X") {
-                        grid[j][i] += 1;
-                    }
-                }
-                if (j != grid.length - 1) {
-                    if (grid[j + 1][i] == "X") {
-                        grid[j][i] += 1;
-                    }
-                }
-            }
-        }
-    }
-}
-
-function fixeIndexesX (grid) {
-    for (let i = 0; i < grid.length; i++){
-        for (let j = 0; j < grid.length; j++){
-            if (j != 0 && grid[i][j] != "X"){
-                if(grid[i][j-1] == "X"){
-                    grid[i][j] += 1;
-                }
-            }
-            if (j != grid.length-1 && grid[i][j] != "X"){
-                if (grid[i][j+1] == "X"){
-                    grid[i][j] +=1;
-                }
-            }
-        }
-    }
 }
 
 main();
