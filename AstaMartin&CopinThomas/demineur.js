@@ -8,6 +8,7 @@ function main() {
     for (let i = 0; i < bombs.length; i++) {
         grid[bombs[i][0]][bombs[i][1]] = "X";
     }
+    fixeIndexesX(grid);
     console.log(grid);
 }
 
@@ -40,6 +41,23 @@ function createGrid(a) {
         }
     }
     return grid;
+}
+
+function fixeIndexesX (grid) {
+    for (let i = 0; i < grid.length; i++){
+        for (let j = 0; j < grid.length; j++){
+            if (j != 0 && grid[i][j] != "X"){
+                if(grid[i][j-1] == "X"){
+                    grid[i][j] += 1;
+                }
+            }
+            if (j != grid.length-1 && grid[i][j] != "X"){
+                if (grid[i][j+1] == "X"){
+                    grid[i][j] +=1;
+                }
+            }
+        }
+    }
 }
 
 main();
