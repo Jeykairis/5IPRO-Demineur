@@ -67,8 +67,8 @@ function createGrid(a) {
  * @param {*} bombs indique la liste de positions des bombes
  */
 function fixeIndexes(grid, bombs) {
-    for (let i = 0; i < bombs.length; i++){
-        if (bombs[i][1] > 0 && grid[bombs[i][0]][bombs[i][1]-1] != "X"){
+    for (let i = 0; i < bombs.length; i++){ //On a la liste des positions des bombes, du coup on s'occupe d'incrémenter les indices autour de chaque bombe
+        if (bombs[i][1] > 0 && grid[bombs[i][0]][bombs[i][1]-1] != "X"){ //Les 8 positions autour du coup oui
             grid[bombs[i][0]][bombs[i][1]-1] += 1;
         }
         if (bombs[i][1] > 0 && bombs[i][0] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]-1] != "X"){
