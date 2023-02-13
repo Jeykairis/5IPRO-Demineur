@@ -8,6 +8,7 @@ function main() {
     for (let i = 0; i < bombs.length; i++) {
         grid[bombs[i][0]][bombs[i][1]] = "X";
     }
+    fixeIndexes(grid, bombs);
     console.log(grid);
 }
 
@@ -29,6 +30,12 @@ function setBombs(numberOfBombs) {
     return posOfBombs;
 }
 
+/**S'assure qu'aucun doublon n'est présent dans la liste des positions où placer les bombes
+ * 
+ * @param {*} posOfBombs indique la liste des positions des bombes
+ * @param {*} pair indique la position à check dans la liste
+ * @returns true si la paire est déjà dans la liste, false sinon
+ */
 function includesPair(posOfBombs, pair){
     for(let i = 0; i < posOfBombs.length; i++){
         if(pair[0] == posOfBombs[i][0] && pair[1] == posOfBombs[i][1]){
@@ -52,6 +59,40 @@ function createGrid(a) {
         }
     }
     return grid;
+}
+
+/**S'occupe de mettre les indices partout sur la grille
+ * 
+ * @param {*} grid indique la grille sur laquelle on pose les indices
+ * @param {*} bombs indique la liste de positions des bombes
+ */
+function fixeIndexes(grid, bombs) {
+    for (let i = 0; i < bombs.length; i++){
+        if (bombs[i][1] > 0 && grid[bombs[i][0]][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]][bombs[i][1]-1] += 1;
+        }
+        if (bombs[i][1] > 0 && bombs[i][0] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]-1] += 1;
+        }
+        if (bombs[i][0] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]] += 1;
+        }
+        if (bombs[i][0] < grid.length-1  && bombs[i][1] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]+1] += 1;
+        }  
+        if (bombs[i][1] < grid.length-1 && grid[bombs[i][0]][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]][bombs[i][1]+1] += 1;
+        }  
+        if (bombs[i][0] > 0 && bombs[i][1] < grid.length-1 && grid[bombs[i][0]-1][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]+1] += 1;
+        }      
+        if (bombs[i][0] > 0 && grid[bombs[i][0]-1][bombs[i][1]] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]] += 1;
+        }  
+        if (bombs[i][0] > 0 && bombs[i][1] > 0 && grid[bombs[i][0]-1][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]-1] += 1;
+        }        
+    }
 }
 
 main();
