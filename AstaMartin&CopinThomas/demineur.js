@@ -8,8 +8,7 @@ function main() {
     for (let i = 0; i < bombs.length; i++) {
         grid[bombs[i][0]][bombs[i][1]] = "X";
     }
-    fixeIndexesY(grid);
-    fixeIndexesX(grid);
+    fixeIndexes(grid, bombs);
     console.log(grid);
 }
 
@@ -44,39 +43,32 @@ function createGrid(a) {
     return grid;
 }
 
-function fixeIndexesY(grid) {
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid.length; j++) {
-            if (grid[j][i] != "X") {
-                if (j != 0) {
-                    if (grid[j - 1][i] == "X") {
-                        grid[j][i] += 1;
-                    }
-                }
-                if (j != grid.length - 1) {
-                    if (grid[j + 1][i] == "X") {
-                        grid[j][i] += 1;
-                    }
-                }
-            }
+function fixeIndexes(grid, bombs) {
+    for (let i = 0; i < bombs.length; i++){
+        if (bombs[i][1] > 0 && grid[bombs[i][0]][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]][bombs[i][1]-1] += 1;
         }
-    }
-}
-
-function fixeIndexesX (grid) {
-    for (let i = 0; i < grid.length; i++){
-        for (let j = 0; j < grid.length; j++){
-            if (j != 0 && grid[i][j] != "X"){
-                if(grid[i][j-1] == "X"){
-                    grid[i][j] += 1;
-                }
-            }
-            if (j != grid.length-1 && grid[i][j] != "X"){
-                if (grid[i][j+1] == "X"){
-                    grid[i][j] +=1;
-                }
-            }
+        if (bombs[i][1] > 0 && bombs[i][0] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]-1] += 1;
         }
+        if (bombs[i][0] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]] += 1;
+        }
+        if (bombs[i][0] < grid.length-1  && bombs[i][1] < grid.length-1 && grid[bombs[i][0]+1][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]+1][bombs[i][1]+1] += 1;
+        }  
+        if (bombs[i][1] < grid.length-1 && grid[bombs[i][0]][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]][bombs[i][1]+1] += 1;
+        }  
+        if (bombs[i][0] > 0 && bombs[i][1] < grid.length-1 && grid[bombs[i][0]-1][bombs[i][1]+1] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]+1] += 1;
+        }      
+        if (bombs[i][0] > 0 && grid[bombs[i][0]-1][bombs[i][1]] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]] += 1;
+        }  
+        if (bombs[i][0] > 0 && bombs[i][1] > 0 && grid[bombs[i][0]-1][bombs[i][1]-1] != "X"){
+            grid[bombs[i][0]-1][bombs[i][1]-1] += 1;
+        }        
     }
 }
 
