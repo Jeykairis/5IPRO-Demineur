@@ -3,7 +3,13 @@ let listBomb = [];
 
 document
   .querySelectorAll("#level")
-  .forEach((x) => x.addEventListener("click", defineBomb));
+  .forEach((x) => x.addEventListener("click", async (e) => {
+    await defineTab(e);
+    defineBomb(e)
+  }));
+function defineTab(e){
+  return 0
+}
 function defineBomb(e) {
     let nbBomb = 0;
   if (document.querySelector("#level")) {
@@ -25,7 +31,6 @@ function defineBomb(e) {
   }
     while (listBomb.length < parseInt(nbBomb)) {
       let newBomb = Math.floor(Math.random() * nbBomb);
-      console.log(Math.floor(Math.random() * nbBomb));
       if (listBomb.includes(btns[newBomb]) == false) {
         listBomb.push(btns[newBomb]);
         console.log(listBomb);
