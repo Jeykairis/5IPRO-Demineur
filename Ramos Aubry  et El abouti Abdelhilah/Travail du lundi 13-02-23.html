@@ -4,19 +4,29 @@
   <meta charset="UTF-8">
   <title>Démineur</title>
   <style>
-    table {
-      border-collapse: collapse;
-    }
-    td {
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      font-weight: bold;
-      border: 1px solid black;
-    }
+    /* Votre code CSS ici */
+      table {
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid black;
+    background-color: #ddd;
+  }
+  .revealed {
+    background-color: white;
+  }
+  .flagged {
+    background-color: yellow;
+  }²²²
   </style>
 </head>
 <body>
+  <!-- Votre code HTML et JavaScript ici -->
   <table id="game-board"></table>
   <script>
     // Définit les constantes de jeu pour le démineur
@@ -78,7 +88,7 @@
       cell.classList.add('revealed');
       if (board[row][col] === 'M') {
         // La case est une mine, fin du jeu
-        cell.textContent = 'X';
+        cell.textContent = '💣';
         alert('Vous avez perdu !');
       } else if (board[row][col] === 0) {
         // La case est vide, révèle les cases adjacentes
