@@ -9,9 +9,16 @@
 
     <body>
         <h1>Démineur</h1> 
-        <table>
-            <tbody id="grille">
-                <tr> <!-- 1--> 
+
+        <!--encodage du nombre de bombe-->
+        <label for="input">Combien de bombes voulez-vous? (Max 10) :</label>
+		<input type="text" placeholder="Entrez un mot" id="input" name="input"> 
+        <button type="button" id="button2" onclick="traiter()">Cliquez pour confirmer.</button>
+
+        
+ 
+        <table id="grille">
+            <tr> <!-- 1--> 
                     <td><button></button></td>
                     <td><button></button></td>
                     <td><button></button></td>
@@ -131,8 +138,7 @@
                     <td><button></button></td>
                     <td><button></button></td>
                 </tr>
-            </tbody>
-          
+        </table>
     </body>
     <script src="Demineur Jordane - Caroline.js"></script> 
 </html>

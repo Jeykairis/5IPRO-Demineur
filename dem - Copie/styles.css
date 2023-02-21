@@ -11,12 +11,17 @@ h1{
   text-align: center;
 }
 
+
+input{
+  font-size: 0.8em;
+}
+
 table {
     border-collapse: collapse;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 100vh;
   }
   
   button {
