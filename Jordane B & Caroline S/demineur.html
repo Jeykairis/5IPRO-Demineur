@@ -10,138 +10,41 @@
     <body>
         <h1>Démineur</h1> 
 
-        <div>
-            <li>Combien de bombes souhaitez-vous? Entre 1 à 10</li>
+        <!--encodage du nombre de bombe-->
+        <label for="input">Combien de bombes voulez-vous? (Max 10) :</label>
+		<input type="text" placeholder="Entrez un mot" id="input" name="input"> 
+        <button type="button" id="button2" onclick="traiter()">Cliquez pour confirmer.</button>
 
-                <input type="text" placeholder="Nombre de bombe(s)" id="in">
-                <button type="button" id="button2" onclick="getValue();">Cliquez pour confirmer.</button>
-        </div>
         
-        
-        <table>
-            <tbody id="grille">
+ 
+        <table id="grille">
                 <tr> <!-- 1--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
+                    <td id="1"></td>
+                    <td id="2"></td>
+                    <td id="3"></td>
+                    <td id="4"></td>
+                    <td id="5"></td>
+                    <td id="6"></td>
+                    <td id="7"></td>
+                    <td id="8"></td>
+                    <td id="9"></td>
+                    <td id="10"></td>
+
                 </tr>
-                <tr><!-- 2--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                 </tr>
-                 <tr><!-- 3--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
+                <tr> <!-- 2--> 
+                    <td id="11"></td>
+                    <td id="12"></td>
+                    <td id="13"></td>
+                    <td id="14"></td>
+                    <td id="15"></td>
+                    <td id="16"></td>
+                    <td id="17"></td>
+                    <td id="18"></td>
+                    <td id="19"></td>
+                    <td id="20"></td>
+
                 </tr>
-                <tr><!-- 4--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 5--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 6--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 7--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 8--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 9--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-                <tr><!-- 10--> 
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                    <td><button></button></td>
-                </tr>
-            </tbody>
-          
+        </table>
     </body>
     <script src="Demineur Jordane - Caroline.js"></script> 
 </html>
