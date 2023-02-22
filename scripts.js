@@ -22,11 +22,12 @@ function defineDifficulty(e) {
       break;
     case "Extreme":
       tabF(60);
-       setTimeout(() => defineBomb(1000, 60), 50);
+      setTimeout(() => defineBomb(1000, 60), 50);
       break;
   }
 }
 const tabF = (size) => {
+  tab = [];
   for (let i = 0; i < size; i++) {
     let row = [];
     for (let j = 0; j < size; j++) {
@@ -53,46 +54,8 @@ function defineBomb(nbBombs, size) {
   }
   checkNbBomb(tab);
 }
-
-function checkNbBomb(tab) {
-  for (let i = 0; i < tab.length; i++) {
-    for (let j = 0; j < tab.length; j++) {
-      try {
-        if (tab[i][j] == "b") {
-          tab[i - 1][j] != "b" && typeof tab[i - 1][j] === "number"
-            ? tab[i - 1][j]++
-            : null;
-          tab[i - 1][j - 1] != "b" && typeof tab[i - 1][j - 1] === "number"
-            ? tab[i - 1][j - 1]++
-            : null;
-          tab[i - 1][j + 1] != "b" && typeof tab[i - 1][j + 1] === "number"
-            ? tab[i - 1][j + 1]++
-            : null;
-          tab[i][j - 1] != "b" && typeof tab[i][j - 1] === "number"
-            ? tab[i][j - 1]++
-            : null;
-          tab[i][j + 1] != "b" && typeof tab[i][j + 1] === "number"
-            ? tab[i][j + 1]++
-            : null;
-          tab[i + 1][j - 1] != "b" && typeof tab[i + 1][j - 1] === "number"
-            ? tab[i + 1][j - 1]++
-            : null;
-          tab[i + 1][j] != "b" && typeof tab[i + 1][j] === "number"
-            ? tab[i + 1][j]++
-            : null;
-          tab[i + 1][j + 1] != "b" && typeof tab[i + 1][j + 1] === "number"
-            ? tab[i + 1][j + 1]++
-            : null;
-        }
-      } catch (TypeError) {
-        continue;
-      }
-    }
-  }
-  createTab(tab);
-}
-
-function createTab(tab) {
+function createTab() {
+  mainTab.innerHTML = "";
   for (let i = 0; i < tab.length; i++) {
     const row = document.createElement("tr");
     row.id = `${i}`;
@@ -108,174 +71,71 @@ function createTab(tab) {
     }
     mainTab.appendChild(row);
   }
-  document.querySelectorAll(".btn").forEach(x => {
-    x.addEventListener("mousedown", clic)
+  document.querySelectorAll(".btn").forEach((x) => {
+    x.addEventListener("mousedown", clic);
   });
   console.table(tab);
 }
 
+function checkMines(row, col) {
+  let mine = 0
+
+  
+
+}
+
+
+/*function checkNbBomb() {
+  for (let i = 0; i < tab.length; i++) {
+    for (let j = 0; j < tab.length; j++) {
+      if (tab[i][j] === "b") {
+        if (i > 0 && typeof tab[i - 1][j] === "number") tab[i - 1][j]++;
+        if (i > 0 && j > 0 && typeof tab[i - 1][j - 1] === "number")
+          tab[i - 1][j - 1]++;
+        if (
+          i > 0 &&
+          j < tab[i].length - 1 &&
+          typeof tab[i - 1][j + 1] === "number"
+        )
+          tab[i - 1][j + 1]++;
+        if (j > 0 && typeof tab[i][j - 1] === "number") tab[i][j - 1]++;
+        if (j < tab[i].length - 1 && typeof tab[i][j + 1] === "number")
+          tab[i][j + 1]++;
+        if (
+          i < tab.length - 1 &&
+          j > 0 &&
+          typeof tab[i + 1][j - 1] === "number"
+        )
+          tab[i + 1][j - 1]++;
+        if (i < tab.length - 1 && typeof tab[i + 1][j] === "number")
+          tab[i + 1][j]++;
+        if (
+          i < tab.length - 1 &&
+          j < tab[i].length - 1 &&
+          typeof tab[i + 1][j + 1] === "number"
+        )
+          tab[i + 1][j + 1]++;
+      }
+    }
+  }
+  createTab(tab);
+}
 function clic(e) {
   const { rowIndex, colIndex } = e.target.dataset;
-  const row = parseInt(rowIndex)
-  const col = parseInt(colIndex)
-  const num = tab[row][col]
+  const row = parseInt(rowIndex);
+  const col = parseInt(colIndex);
+  const num = tab[row][col];
   if (e.button == 0) {
-      if (num === "b") {
-    console.log("boom!")
-    e.target.style.backgroundImage = "url('images/boom.png')"
-      }
-      else {
-          e.target.style.background = "transparent"
-          if (num > 0) {
-            e.target.innerHTML = num
-          }
-          else {
-            checkAround(row, col)
-          }
-      }
-  }
-  
-  else if (e.button == 1) {
-
-  };
-};
-
-/*          tab[i-1][j-1]++;
-          tab[i-1][j+1]++;
-          tab[i+1][j-1]++;
-          tab[i+1][j]++;
-          tab[i+1][j+1]++;
-let listBomb = [];
-let mainTab = document.getElementById("mainTab");
-
-document.querySelectorAll("#level").forEach((x) =>
-  x.addEventListener("click", (e) => {
-    defineTab(e);
-  })
-);
-
-function defineTab(e) {
-  switch (e.target.innerHTML) {
-    case "Easy":
-      createTab(4, 4);
-      break;
-    case "Medium":
-      createTab(15, 15);
-      break;
-    case "Hard":
-      createTab(30, 30);
-      break;
-    case "Extreme":
-      createTab(60, 60);
-      break;
-  }
-  function createTab(numberRows, numberColumns) {
-    mainTab.innerHTML = "";
-    for (let i = 0; i < numberRows; i++) {
-      const row = document.createElement("tr");
-      row.id = `${i}`;
-      for (let j = 0; j < numberColumns; j++) {
-        const cell = document.createElement("td");
-        const buttons = document.createElement("button");
-        buttons.classList = "btn";
-        buttons.id = `${j}`;
-        buttons.textContent = `${j}`
-        cell.appendChild(buttons);
-        row.appendChild(cell);
-      }
-      mainTab.appendChild(row);
-    }
-    return 0;
-  }      
-  document
-    .querySelectorAll(".btn")
-       .forEach((x) =>
-         x.addEventListener("click", load)
-  );
-}
-function load(e) {
-  defineBomb(e);
-  document.querySelectorAll(".btn").forEach((x)=> x.removeEventListener("click", load))
-}
-function defineBomb(e) {
-  let nbBomb = 0;
-  switch (mainTab.rows.length) {
-    case 4:
-      nbBomb = 4;
-      break;
-    case 15:
-      nbBomb = 16;
-      break;
-    case 30:
-      nbBomb = 164;
-      break;
-    case 60:
-      nbBomb = 1200;
-      break;
-      
-  }
-  while (listBomb.length < nbBomb) {
-    let btns = document.querySelectorAll(".btn");
-    let newBomb = Math.floor(Math.random() * btns.length);
-    if (listBomb.includes(btns[newBomb]) == false && e.target != btns[newBomb]) {
-      listBomb.push(btns[newBomb]);
-      btns[newBomb].innerHTML = "B"
-      console.log(listBomb);
-    }
-  }
-  clic(e)
-  document.querySelectorAll(".btn").forEach(x => {
-    x.addEventListener("mousedown", clic)
-  });
-}
-
-function clic(e) {
-  if (e.button == 0) {
-      if (listBomb.includes(e.target)) {
-    console.log("boom!")
-    e.target.style.backgroundImage = "url('images/boom.png')"
-      }
-      else {
-          e.target.style.background = "transparent"
-          let checkRow = e.target.parentNode.parentNode.id
-          let checkCell = e.target.id
-          console.log(checkRow, checkCell);
-          checkAround(checkRow, checkCell)
-      }
-  }
-  else if (e.button == 1) {
-
-  };
-};
-
-function checkAround(checkRow, checkCell){
-  console.log(mainTab.length);
-  for (let i = 0; i < mainTab.length; i++) {
-    for (let j = 0; i < mainTab.length; j++) {
-
-      if (mainTab[i][j] === "B") {
-        mainTab[i-1][j]++
-        console.log("zizi")
+    if (num === "b") {
+      console.log("boom!");
+      e.target.style.backgroundImage = "url('images/boom.png')";
+    } else {
+      e.target.style.background = "transparent";
+      if (num > 0) {
+        e.target.innerHTML = num;
+      } else {
       }
     }
+  } else if (e.button == 1) {
   }
-  console.log(mainTab[0][2])
-  console.log(mainTab.rows.length)
-  console.log(mainTab.rows[0].cells.length);
-  }
-  /*if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)-10))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)-10)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)-9))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)-9)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)-1))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)-1)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)+1))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)+1)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)+9))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)+9)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)+10))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)+10)).style.background = "transparent";
-      } if (!listBomb.includes(Array.from(btns).find(btn => btn.id == parseInt(e.target.id)+11))) {
-        Array.from(btns).find(btn => btn.id == parseInt((e.target.id)+11)).style.background = "transparent";
-      }
 }*/
