@@ -1,3 +1,16 @@
-tr > * {
-    border: solid 2px grey;
+body {
+    margin: 0;
+    font-size: 0;
+    background-color: indianred;
+}
+#mainTab {
+    font-size : 0;
+}
+.btn {   
+    border-radius: 5px;
+    width: 42px;
+    height: 42px;
+    background-color: rgb(143, 143, 255);
+    justify-content: center;
+    background-position: 50%;
 }
