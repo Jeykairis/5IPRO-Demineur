@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grille 5x5 aléatoire</title>
+</head>
+<body>
+  <!-- Tableau HTML pour afficher la grille -->
+  <table>
+    <tbody id="grille">
+      <!-- Les cases seront générées ici -->
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    // Initialisation de la grille avec des zéros
+    var grille = [
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0]
+    ];
+
+    // Remplissage aléatoire d'une case par ligne
+    for (var i = 0; i < grille.length; i++) {
+      var randomCol = Math.floor(Math.random() * grille.length);
+      grille[i][randomCol] = 1;
+    }
+
+    // Récupération du tableau HTML et modification des cases
+    var grilleHtml = document.getElementById('grille');
+    for (var i = 0; i < grille.length; i++) {
+      for (var j = 0; j < grille.length; j++) {
+        if (grille[i][j] === 1) {
+          grilleHtml.rows[i].cells[j].innerHTML = '*';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

@@ -6,10 +6,11 @@
 
 /* function A pour récuper la valeur du user et travailler dessus ensuite*/
 
-  function getValue() {
+function getValue() {
 	// Récupérer la nbUser de l'entrée utilisateur
 	var repUser = document.getElementById("input").value;
 
+	
 	if(repUser !=="oui" ){
 		alert("Merci, aurevoir.");
 	}else{// Appeler les fonctions de traitement
@@ -19,20 +20,19 @@
 	  }
   }
 
-/* function1: pour affichage au bouton du nb de bombes demandé*/
+/* function1: Affiche le bouton qui va lancer le jeu et placer ensuite la bombe aléatoirement*/
 function afficheButton() {
 	  // Sélectionner l'élément input et récupérer sa valeur
 	  var input = document.getElementById("input").value;
-	  document.getElementById("button2").innerHTML = input;
+	  document.getElementById("button2").innerHTML = "Bon amusement";
   }
-
 
 
 /*function2: pour mettre 1 seule bombe aléatoirement dans le tableau*/
 function bombeTableau() {
 	var bombe = "*";
 	var input = document.getElementById('input').value;
-  var button = document.getElementById("boom");
+  	var button = document.getElementById("boom");
 	var table = document.getElementById('grille');
 
 	// Choix aléatoire d'une ligne et d'une colonne
