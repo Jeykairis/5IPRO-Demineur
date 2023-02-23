@@ -1,19 +1,24 @@
 
 /* Code du démineur*/
 
-// fait disparaitre les deux boutons lors du click non
+
+
+
+
+// A)fait disparaitre les deux boutons lors du click non
 function NON() {
 	var bouttonOui = document.getElementById("clickOui");
 	bouttonOui.remove();
 	var bouttonNon = document.getElementById("clickNON");
 	bouttonNon.remove();
 	alert("Merci, aurevoir.");
+	location.reload(); //permet de relancer là page après le click "NON"
 }
 
 
 
 
-// le jouer click sur "Oui" pour lancer démarrer le jeu, le boutton disparait
+// B) lors du click au "Oui" , place les pions et fait disparaitre les boutons
 function OUI() {
 	//fait disparaitre le buton non
 	var bouttonNon = document.getElementById("clickNON");
@@ -53,8 +58,6 @@ function OUI() {
 		  }
 		}
 	  }
-
-
 }
 
 

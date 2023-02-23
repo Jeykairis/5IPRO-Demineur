@@ -1,23 +1,44 @@
 
 /* Code du démineur*/
 
-// le joueur click sur "NON" pour ne pas démarrer le jeu
-function NON() {
-	document.getElementById("clickNON").innerHTML = "Aurevoir";
-	//retire le boutton "NON"
 
-	const monBouton = document.getElementById("monBouton");
-  monBouton.addEventListener("click", () => {
-    monBouton.remove();
-  });
+
+
+
+// A)fait disparaitre les deux boutons lors du click non
+
+
+function NON() {
+	var bouttonOui = document.getElementById("clickOui");
+	bouttonOui.remove();
+	var bouttonNon = document.getElementById("clickNON");
+	bouttonNon.remove();
+	alert("Merci, aurevoir.");
 
 	
+
+	location.reload();
+
+
+
 }
 
 
-// le jouer click sur "Oui" pour lancer démarrer le jeu
+
+
+
+
+
+// B) lors du click au "Oui" , place les pions et fait disparaitre les boutons
 function OUI() {
-	document.getElementById("clickOui").innerHTML = "Bon amusement";
+	//fait disparaitre le buton non
+	var bouttonNon = document.getElementById("clickNON");
+	bouttonNon.remove();
+	
+	// fait disparaitre le button oui et lance la partie
+	var bouttonOui = document.getElementById("clickOui");
+	bouttonOui.remove();
+	alert("Amusez-vous bien.");
 
 	 // Initialisation de la grille avec des zéros
 	 var grille = [
@@ -48,8 +69,6 @@ function OUI() {
 		  }
 		}
 	  }
-
-
 }
 
 
