@@ -21,6 +21,8 @@ function OUI() {
   
 	initialiserGrille(); //appel la fct pour placer les bombes "#")
 	chiffreGrille(); //appel la fonction pour placer les chiffres
+	montreCase(); // retire les cases lors du click
+	//endGame();
 	/* flag(); //appel la fonction pour placer le drapeau (actuellement pas encore crée)*/
   }
 
@@ -68,6 +70,36 @@ function chiffreGrille() {
 	  }
 	}
   }
+
+
+  // function pour découvrir les cases au click
+ 
+function montreCase(){
+	var cases = document.getElementsByClassName("boom");
+     var grille;   
+	// Ajout de l'écouteur d'événement "click" sur chaque case
+	for (var i = 0; i < cases.length; i++) {
+	  cases[i].addEventListener("click", function() {
+		// Retire la case cliquée de la grille
+		//this.parentNode.removeChild(this);
+	  });
+	}
+}
+
+/*
+function endGame(){
+
+}*/
+
+  
+
+
+
+
+
+
+
+
 
 
 
