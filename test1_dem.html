@@ -1,14 +1,46 @@
-<li>Souhaitez-vous jouer au Démineur?</li>
-   
-                    <button id="clickOui" onclick="OUI()">OUI</button>
-                    <button id="clickNON" onclick="NON()">NON</button>
-                    
-                    <script type="text/javascript">
-                        function OUI() {
-                        document.getElementById("clickOui").innerHTML = "Bon amusement";
-                        }
-                        function NON() {
-                document.getElementById("clickNON").innerHTML = "Aurevoir";
-                }
-                    </script>
+<table>
+  <tr>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+  </tr>
+  <tr>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+  </tr>
+  <tr>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+  </tr>
+  <tr>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+    <td><button class="boom" onclick="cacherCase(this)">O</button></td>
+  </tr>
+  <tr>
+    <td><button class="boom" onclick="cacherCase(this)"></button></td>
+    <td><button class="boom" onclick="cacherCase(this)"></button></td>
+    <td><button class="boom" onclick="cacherCase(this)"></button></td>
+    <td><button class="boom" onclick="cacherCase(this)"></button></td>
+    <td><button class="boom" onclick="cacherCase(this)"></button></td>
+  </tr>
+</table>
 
+<script>
+  function cacherCase(element){
+    // change le contenu du bouton cliqué
+    if (event.button == 0) {
+        element.style.display = 'none';}
+    
+}
+</script>
