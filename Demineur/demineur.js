@@ -81,7 +81,7 @@ function montreCase(){
 	for (var i = 0; i < cases.length; i++) {
 	  cases[i].addEventListener("click", function() {
 		// Retire la case cliquée de la grille
-		//this.parentNode.removeChild(this);
+		this.parentNode.removeChild(this);
 	  });
 	}
 }
