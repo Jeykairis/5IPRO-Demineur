@@ -86,21 +86,24 @@ function retireCase(){
 	}
 }
 
-// function pour placer les drapeaux
+//function pour placer les drapeaux
 function flag(){
 	var cases = document.getElementsByClassName("boom");
 	var grille;   
-   // Ajout de l'écouteur d'événement "clickDroit" sur chaque case
+   // Ajout de l'écouteur d'événement "click" sur chaque case
    for (var i = 0; i < cases.length; i++) {
-	 cases[i].addEventListener("contextmenu", function(event) {
-	   // empêche l'affichage du menu contextuel
-	   event.preventDefault();
-	
-	   // change le bouton de la case cliquée
-	   this.innerHTML = "F";
+	 cases[i].addEventListener("contextmenu", function() {
+		//empêche l'affichage 
+		event.preventDefault();
+
+	   // Retire la case cliquée de la grille
+		this.innerHTML="F";
+
 	 });
    }
+
 }
+
 
 
 
