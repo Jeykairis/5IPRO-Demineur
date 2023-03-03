@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="plateau"></table>
+</body>
+
+<script>
+
+    // Creation plateau :-------------------------------
+
+    const plateau = [];
+    let pDimensions = 8;
+
+    for (let i = 0; i < pDimensions; i++)
+    {
+        plateau[i] = [];
+        for (let j = 0; j < pDimensions; j++)
+        {
+            plateau[i][j] = [0];
+        }
+    }
+    //------------------------------------------------------------
+
+    // Fonction lors du clic sur une cellule :
+
+    function cliquage()
+    {
+        blablabla
+    }
+
+
+    // Creation homologue plateau HTML :--------------------------
+
+    let box = document.querySelector("#plateau");
+
+    for (let i = 0; i < pDimensions; i++)
+    {
+        let ligne = document.createElement("tr");
+        for (let j = 0; j < pDimensions; j++)
+        {
+            let cellule = document.createElement("td");
+            cellule.setAttribute("data-ligne", i);
+            cellule.setAttribute("data-cellule", j);
+            // Ajout permet de cliquer : ↓
+            cellule.addEventListener("click", cliquage);
+            ligne.appendChild(cellule);
+        }
+        box.appendChild(ligne);
+    }
+
+
+
+
+
+
+
+    //Liaison 
+
+    /* Minage :
+        let compteur = 10;
+    
+        while (compteur != 0)
+        {
+    
+        }*/
+
+</script>
+
+</html>
