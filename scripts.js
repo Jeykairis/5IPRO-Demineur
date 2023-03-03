@@ -4,13 +4,15 @@ let listBomb = [];
 let difficulty = "";
 let size = 0;
 let nbBombs = 0;
+let noClicYet = true
 
 document.addEventListener("contextmenu", (event) => {
   event.preventDefault();
 });
 document.getElementById("smileyButton").addEventListener("click", () => {
+  noClicYet = true
   tabF(size);
-  setTimeout(() => defineBomb(nbBombs, size), 50);
+  createTab()
 });
 document.querySelectorAll(".level").forEach((button) =>
   button.addEventListener("click", (e) => {
@@ -18,34 +20,35 @@ document.querySelectorAll(".level").forEach((button) =>
   })
 );
 function defineDifficulty(e) {
+  noClicYet = true;
   switch (e.target.innerHTML) {
     case "Easy":
       difficulty = "Easy";
       size = 9;
       nbBombs = 10;
       tabF(size);
-      setTimeout(() => defineBomb(nbBombs, size), 50);
+      createTab();
       break;
     case "Medium":
       difficulty = "Medium";
       size = 16;
       nbBombs = 40;
       tabF(size);
-      setTimeout(() => defineBomb(nbBombs, size), 50);
+      createTab();
       break;
     case "Hard":
       difficulty = "Hard";
       size = 21;
       nbBombs = 99;
       tabF(size);
-      setTimeout(() => defineBomb(nbBombs, size), 50);
+      createTab();
       break;
     case "Extreme":
       difficulty = "Extreme";
       size = 27;
       nbBombs = 150;
       tabF(size);
-      setTimeout(() => defineBomb(nbBombs, size), 50);
+      createTab();
       break;
   }
 }
@@ -76,8 +79,7 @@ function defineBomb(nbBombs, size) {
       listBomb.push(tab[rowBomb][colBomb]);
       i++;
     }
-  }
-  createTab();
+  };
 }
 function createTab() {
   mainTab.innerHTML = "";
@@ -101,6 +103,10 @@ function createTab() {
   });
 }
 function clic(e) {
+  if (noClicYet) {
+    defineBomb(nbBombs, size)
+    noClicYet = false
+  }
   const { rowIndex, colIndex } = e.target.dataset;
   const row = parseInt(rowIndex);
   const col = parseInt(colIndex);
@@ -108,6 +114,7 @@ function clic(e) {
   if (e.button == 0) {
     if (num === "b") {
       gameOver();
+      noClicYet = true
       e.target.style.backgroundImage = "url('images/boom.png')";
     } else {
       checkMines(row, col, e);
@@ -134,6 +141,7 @@ function clic(e) {
       x.removeEventListener("mousedown", clic);
     });
     document.getElementById("winText").innerHTML = "You win ! Nicely done";
+    noClicYet = true
   }
 }
 function checkMines(row, col, e) {
@@ -182,7 +190,9 @@ function gameOver() {
   seeAllBombs();
   document.querySelectorAll(".btn").forEach((x) => {
     x.removeEventListener("mousedown", clic);
+    noClicYet = true
   });
+  
 }
 function seeAllBombs() {
   for (let i = 0; i < tab.length; i++) {
