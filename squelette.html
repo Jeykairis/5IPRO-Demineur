@@ -5,73 +5,154 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Démineur</title>
 </head>
 
 <body>
+    <h1>Jeu du démineur</h1>
+    <p>Nombre de mines : <span id="nbreMines"></span></p>
+    <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+    <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+
+    <button onclick="facile()">Facile</button>
+    <button onclick="moyen()">Moyen</button>
+    <button onclick="difficile()">Difficile</button>
+
+    <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
+
     <table id="plateau"></table>
 </body>
 
 <script>
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Initialisation des données de construction :---------------
 
-    // Creation plateau :-------------------------------
+    const composants =
+    {
+        nbreLignes: 8,
+        nbreCellules: 8,
+        nbreBombes: 10
+    };
 
     const plateau = [];
-    let pDimensions = 8;
 
-    for (let i = 0; i < pDimensions; i++)
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Choix de difficulté :--------------------------------------
+
+    function facile()
     {
-        plateau[i] = [];
-        for (let j = 0; j < pDimensions; j++)
+        composants.nbreBombes = 10;
+        composants.nbreLignes = 8;
+        composants.nbreCellules = 8;
+        displayData();
+    }
+    function moyen()
+    {
+        composants.nbreBombes = 15;
+        composants.nbreLignes = 12;
+        composants.nbreCellules = 12;
+        displayData();
+    }
+    function difficile()
+    {
+        composants.nbreBombes = 20;
+        composants.nbreLignes = 15;
+        composants.nbreCellules = 15;
+        displayData();
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Affichage des données :------------------------------------
+
+    function displayData()
+    {
+        document.querySelector("#nbreMines").innerText = composants.nbreBombes;
+        document.querySelector("#nbreLignes").innerText = composants.nbreLignes;
+        document.querySelector("#nbreCol").innerText = composants.nbreCellules;
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Création plateau :-----------------------------------------
+
+    function creation()
+    {
+        for (let i = 0; i < composants.nbreLignes; i++)
         {
-            plateau[i][j] = [0];
+            plateau[i] = [];
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                plateau[i][j] = 0;
+            }
+        }
+        etalage();
+        creationPlatHTML();
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Étalage des mines :----------------------------------------
+
+    function etalage()
+    {
+        for (let i = 0; i < composants.nbreBombes; i++)
+        {
+            placement()
+        }
+        console.table(plateau);
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction récursive de placement de mine individuelle :-----    
+
+    function placement()
+    {
+        let ligne = Math.floor(Math.random() * composants.nbreLignes);
+        let cellule = Math.floor(Math.random() * composants.nbreCellules);
+        if (plateau[ligne][cellule] == "M")
+        {
+            placement();
+        }
+        else plateau[ligne][cellule] = "M";
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Création homologue plateau HTML :--------------------------
+
+    function creationPlatHTML()
+    {
+        let box = document.querySelector("#plateau");
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            let ligne = document.createElement("tr");
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                let cellule = document.createElement("td");
+                cellule.id = i + "-" + j;
+                // Ajout permet de cliquer : ↓
+                cellule.addEventListener("click", cliquage);
+                ligne.appendChild(cellule);
+            }
+            box.appendChild(ligne);
         }
     }
-    //------------------------------------------------------------
 
-    // Fonction lors du clic sur une cellule :
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction lors du clic sur une cellule :--------------------
 
     function cliquage()
     {
-        blablabla
+
     }
 
-
-    // Creation homologue plateau HTML :--------------------------
-
-    let box = document.querySelector("#plateau");
-
-    for (let i = 0; i < pDimensions; i++)
-    {
-        let ligne = document.createElement("tr");
-        for (let j = 0; j < pDimensions; j++)
-        {
-            let cellule = document.createElement("td");
-            cellule.setAttribute("data-ligne", i);
-            cellule.setAttribute("data-cellule", j);
-            // Ajout permet de cliquer : ↓
-            cellule.addEventListener("click", cliquage);
-            ligne.appendChild(cellule);
-        }
-        box.appendChild(ligne);
-    }
-
-
-
-
-
-
-
-    //Liaison 
-
-    /* Minage :
-        let compteur = 10;
-    
-        while (compteur != 0)
-        {
-    
-        }*/
-
+    //------------------------------------------------------------
+    //------------------------------------------------------------
 </script>
 
 </html>
