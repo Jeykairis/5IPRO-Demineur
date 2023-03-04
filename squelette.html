@@ -112,9 +112,10 @@
     {
         for (let i = 0; i < composants.nbreBombes; i++)
         {
-            placement()
+            placement();
         }
         console.table(plateau);
+        numeros();
     }
 
     //------------------------------------------------------------
@@ -153,6 +154,63 @@
             }
             box.appendChild(ligne);
         }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction répartition des numéros :-------------------------
+
+    function numeros()
+    {
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                if (plateau[i][j] == "B")
+                {
+                    let compteurI = 1;
+                    for (let k = i - 1; compteurI <= 3; compteurI++)
+                    {
+                        if (k < 0)
+                        {
+                            k++;
+                            continue;
+                        }
+                        if (k >= composants.nbreLignes)
+                        {
+                            compteurI = 4;
+                            continue;
+                        }
+                        let compteurJ = 1;
+                        for (let l = j - 1; compteurJ <= 3; compteurJ++)
+                        {
+                            if (l < 0)
+                            {
+                                l++;
+                                continue;
+                            }
+                            if (l >= composants.nbreCellules)
+                            {
+                                compteurJ = 4;
+                                continue;
+                            }
+                            if (plateau[k][l] == "B")
+                            {
+                                l++;
+                                continue;
+                            }
+                            else
+                            {
+                                plateau[k][l]++;
+                                l++;
+                            }
+                        }
+                        k++;
+                    }
+                }
+            }
+        }
+        console.table(plateau);
     }
 
     //------------------------------------------------------------
