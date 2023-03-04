@@ -6,6 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démineur</title>
+    <style>
+        #table {
+            border: 1px solid black;
+            background-color: rgb(242, 241, 229);
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,8 +32,7 @@
     <button onclick="difficile()">Difficile</button>
 
     <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
-
-    <table id="plateau"></table>
+    <table id="table"></table>
 </body>
 
 <script>
@@ -113,11 +125,11 @@
     {
         let ligne = Math.floor(Math.random() * composants.nbreLignes);
         let cellule = Math.floor(Math.random() * composants.nbreCellules);
-        if (plateau[ligne][cellule] == "M")
+        if (plateau[ligne][cellule] == "B")
         {
             placement();
         }
-        else plateau[ligne][cellule] = "M";
+        else plateau[ligne][cellule] = "B";
     }
 
     //------------------------------------------------------------
@@ -126,14 +138,15 @@
 
     function creationPlatHTML()
     {
-        let box = document.querySelector("#plateau");
+        let box = document.querySelector("#table");
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             let ligne = document.createElement("tr");
             for (let j = 0; j < composants.nbreCellules; j++)
             {
                 let cellule = document.createElement("td");
-                cellule.id = i + "-" + j;
+                cellule.setAttribute("data-ligne", i);
+                cellule.setAttribute("data-cellule", j);
                 // Ajout permet de cliquer : ↓
                 cellule.addEventListener("click", cliquage);
                 ligne.appendChild(cellule);
@@ -148,7 +161,9 @@
 
     function cliquage()
     {
-
+        let nligne = parseInt(event.target.getAttribute('data-ligne'));
+        let ncellule = parseInt(event.target.getAttribute('data-cellule'));
+        console.log(nligne, ncellule);
     }
 
     //------------------------------------------------------------
