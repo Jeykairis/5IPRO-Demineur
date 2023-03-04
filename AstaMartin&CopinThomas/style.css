@@ -1,0 +1,10 @@
+.mainDivClass {
+    display: flex;
+    justify-content: center;
+    margin-top: 30%;
+}
+
+.flexbox-item {
+    width: 18.4px;
+    border: 1px, solid;
+}
