@@ -19,25 +19,32 @@
             border: 1px solid black;
         }
 
-        #table> {
+        #table {
             background-color: green;
+        }
+
+        #arcom {
+            visibility: hidden;
         }
     </style>
 </head>
 
 <body>
     <h1>Jeu du démineur</h1>
-    <p>Nombre de mines : <span id="nbreMines"></span></p>
-    <p>Nombre de lignes : <span id="nbreLignes"></span></p>
-    <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+    <div id="setup">
+        <p>Nombre de mines : <span id="nbreMines"></span></p>
+        <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+        <p>Nombre de colonnes : <span id="nbreCol"></span></p>
 
-    <button onclick="facile()">Facile</button>
-    <button onclick="moyen()">Moyen</button>
-    <button onclick="difficile()">Difficile</button>
+        <button onclick="facile()">Facile</button>
+        <button onclick="moyen()">Moyen</button>
+        <button onclick="difficile()">Difficile</button>
 
-    <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
+        <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
+    </div>
     <table id="table"></table>
-    <p id="victoire"></p>
+    <p id="conclusion"></p>
+    <button id="arcom">Recommencer ?</button>
 </body>
 
 <script>
@@ -90,11 +97,12 @@
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Affichage des données :------------------------------------
+
     function resetTable()
     {
         let tb = document.querySelector("#table").innerHTML = "";
-
     }
+
     function displayData()
     {
         document.querySelector("#nbreMines").innerText = composants.nbreBombes;
@@ -102,12 +110,17 @@
         document.querySelector("#nbreCol").innerText = composants.nbreCellules;
     }
 
+    let setup = document.querySelector("#setup");
+
+    document.querySelector("#arcom").addEventListener("click", recommence);
+
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Création plateau :-----------------------------------------
 
     function creation()
     {
+        setup.style.visibility = "hidden";
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             plateau[i] = [];
@@ -265,6 +278,7 @@
         {
             event.target.style.backgroundColor = "red";
             infoBoum = "BOOUUMMM";
+            defaite();
         }
         else if (event.target.getAttribute("data-mine") == "false")
         {
@@ -298,8 +312,25 @@
     //------------------------------------------------------------
     //condition défaite :-----------------------------------------
 
+    function defaite()
+    {
+        console.log("rip");
+        document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
+        document.querySelector("#arcom").style.visibility = "visible";
+    }
 
 
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction recommence :--------------------------------------
+
+    function recommence()
+    {
+        setup.style.visibility = "visible";
+        resetTable();
+        document.querySelector("#arcom").style.visibility = "hidden";
+        document.querySelector("#conclusion").style.visibility = "hidden";
+    }
 
     //------------------------------------------------------------
     //------------------------------------------------------------
@@ -309,7 +340,8 @@
     {
         if (composants.nbreVictoire == 0)
         {
-            document.querySelector("#victoire").innerText = "Victoire !";
+            document.querySelector("#conclusion").innerText = "Victoire !";
+            document.querySelector("#arcom").style.visibility = "visible";
         }
     }
 
