@@ -17,6 +17,8 @@
             height: 20px;
             background-color: grey;
             border: 1px solid black;
+            text-align: center;
+            font-size: small;
         }
 
         #table {
@@ -266,13 +268,9 @@
 
     function cliquage()
     {
-        let nligne = parseInt(event.target.getAttribute('data-ligne'));
-        let ncellule = parseInt(event.target.getAttribute('data-cellule'));
-        if (event.target.getAttribute("data-statut") == "cachee" && plateau[nligne][ncellule] != "B")
-        {
-            event.target.setAttribute("data-statut", "revelee");
-            composants.nbreVictoire--;
-        }
+        let nLigne = parseInt(event.target.getAttribute('data-ligne'));
+        let nCellule = parseInt(event.target.getAttribute('data-cellule'));
+        checkCase(nLigne, nCellule);
         let infoBoum = "ouf";
         if (event.target.getAttribute("data-mine") == "true")
         {
@@ -280,13 +278,46 @@
             infoBoum = "BOOUUMMM";
             defaite();
         }
-        else if (event.target.getAttribute("data-mine") == "false")
+        else
         {
-            event.target.style.backgroundColor = "beige"
-            event.target.innerText = plateau[nligne][ncellule];
+            event.target.style.backgroundColor = "beige";
+            if (plateau[nLigne][nCellule] > 0)
+            {
+                event.target.innerText = plateau[nLigne][nCellule];
+            }
+            else
+            {
+                contamination(nLigne, nCellule);
+            }
         }
-        console.log(nligne, ncellule, infoBoum);
+        console.log(nLigne, nCellule, infoBoum);
         checkVictoire();
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction checkage de case :--------------------------------
+
+    function checkCase(nLigne, nCellule)
+    {
+        if (event.target.getAttribute("data-statut") == "cachee" && plateau[nLigne][nCellule] != "B")
+        {
+            event.target.setAttribute("data-statut", "revelee");
+            composants.nbreVictoire--;
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction récursive de contamination :----------------------
+
+    function contamination(nLigne, ncelllule)
+    {
+        if (nLigne < 0 || nLigne == composants.nbreLignes || nCelllule < 0 || nCellule == composants.nbreCellules)
+        {
+            return;
+        }
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][date-cellule="${nCellule}"]`);
     }
 
     //------------------------------------------------------------
@@ -322,18 +353,6 @@
 
     //------------------------------------------------------------
     //------------------------------------------------------------
-    // Fonction recommence :--------------------------------------
-
-    function recommence()
-    {
-        setup.style.visibility = "visible";
-        resetTable();
-        document.querySelector("#arcom").style.visibility = "hidden";
-        document.querySelector("#conclusion").style.visibility = "hidden";
-    }
-
-    //------------------------------------------------------------
-    //------------------------------------------------------------
     // Condition victoire :---------------------------------------
 
     function checkVictoire()
@@ -343,6 +362,18 @@
             document.querySelector("#conclusion").innerText = "Victoire !";
             document.querySelector("#arcom").style.visibility = "visible";
         }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction recommence :--------------------------------------
+
+    function recommence()
+    {
+        setup.style.visibility = "visible";
+        resetTable();
+        document.querySelector("#arcom").style.visibility = "hidden";
+        document.querySelector("#conclusion").style.visibility = "hidden";
     }
 
     //------------------------------------------------------------
