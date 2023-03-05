@@ -67,14 +67,14 @@ const tabF = (size) => {
   return tab;
 };
 
-function defineBomb(nbBombs, size) {
+function defineBomb(nbBombs, size, row,col) {
   listBomb = [];
 
   let i = 0;
   while (i < nbBombs) {
     let rowBomb = Math.floor(Math.random() * size);
     let colBomb = Math.floor(Math.random() * size);
-    if (!(tab[rowBomb][colBomb] == "b")) {
+    if (!(tab[rowBomb][colBomb] == "b") && (rowBomb != row && colBomb != col)) {
       tab[rowBomb][colBomb] = "b";
       listBomb.push(tab[rowBomb][colBomb]);
       i++;
@@ -102,15 +102,16 @@ function createTab() {
     x.addEventListener("mousedown", clic);
   });
 }
-function clic(e) {
-  if (noClicYet) {
-    defineBomb(nbBombs, size)
-    noClicYet = false
-  }
+function clic(e) {  
   const { rowIndex, colIndex } = e.target.dataset;
   const row = parseInt(rowIndex);
   const col = parseInt(colIndex);
   const num = tab[row][col];
+  if (noClicYet) {
+    defineBomb(nbBombs, size, row,col)
+    noClicYet = false
+  }
+
   if (e.button == 0) {
     if (num === "b") {
       gameOver();
