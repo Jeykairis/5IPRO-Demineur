@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Cours 17: Exo HTML + JS</title>
+    </head>
+
+    <body>
+        <H1>Cours 17: Exercice: JS + HTML</H1>    
+
+        <ol>
+                <li>A)Capturer le double click sur un bouton, changer le texte du bouton au click</li>
+   
+                    <button id="input" onclick="changer()">Cliquez ici pour jouer</button>
+                    
+                    <script type="text/javascript">
+                        function changer() {
+                        document.getElementById("input").innerHTML = "Bon amusement";
+                        }
+                    </script>
+
+                    
+                <li>B)Capturer le click sur un bouton, récupérer la valeur d’un input et l’afficher
+                    comme texte du bouton</li>
+
+                        <input type="text" placeholder="Entrez un mot" id="in">
+                        <button type="button" id="button2" onclick="getValue();">Récupérer la valeur</button>
+
+                        <script>
+                            function getValue() {
+                            // Sélectionner l'élément input et récupérer sa valeur
+                            var input = document.getElementById("in").value;
+
+                            // Afficher la valeur
+                            //alert(input);//via alert
+
+                            //function changer() {
+                            document.getElementById("button2").innerHTML = input;
+                            //}
+                            
+                        }</script>
+
+
+
+
+
+
+                <li>Capturer un blur sur un input, ajouter le contenu de l’input dans un paragraphe
+                    et vider l’input => concaténer les valeurs dans le paragraphe au lieu de l’effacer</li>
+                
+
+
+                
+                <li>Changer la couleur de fond du body lors d’un mouseenter sur bouton</li>
+
+
+                <li>Changer la couleur du texte du body en fonction d’une valeur fournie par l'utilisateur</li>
+            </ol>
+            
+    </body>
+    <script src="bouton.js"></script> <!-- ça pourrait tout aussi bien être "jeuNim.js, donc ton fichier JS devra alors se nommer jeuNim.js-- >
+</html>
+

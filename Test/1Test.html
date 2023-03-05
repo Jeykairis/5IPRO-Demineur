@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Grille 3x3</title>
+	<style>
+		.boom {
+			width: 100px;
+			height: 100px;
+			background-color: white;
+			border: 1px solid black;
+			float: left;
+			margin-right: -1px;
+			margin-bottom: -1px;
+			cursor: pointer;
+		}
+
+		.boom.gris {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="grille">
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+		<div class="boom"></div>
+	</div>
+
+	<script>
+		var cases = document.getElementsByClassName("boom");
+		for (var i = 0; i < cases.length; i++) {
+			cases[i].addEventListener("click", function() {
+				this.classList.toggle("gris");
+			});
+		}
+	</script>
+</body>
+</html>

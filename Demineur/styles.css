@@ -4,7 +4,7 @@
 body{
   font-family: "Arial", Verdana, sans-serif;
   color: #333;
-  background-color: rgb(245, 245, 245);
+  background-color:white;
 }
 
 h1{
@@ -12,9 +12,7 @@ h1{
 }
 
 
-input{
-  font-size: 0.8em;
-}
+
 
 table {
     border-collapse: collapse;
@@ -23,18 +21,32 @@ table {
     align-items: center;
     height: 100vh;
   }
-  
- button {
+
+td{ /* couleur de la case*/
+  color:white;
+}
+
+  #grille td {
+    border: 2px solid black;
+    padding: 5px;
+  }
+
+  .boom {
     width: 30px;
     height: 30px;
-    border: 1px solid #ddd;
-    font-size: 16px;
-    text-align: center;
-    background-color: #bbbaba;
+    background-color: white;
+    border: 1px solid black;
+    float: left;
+    margin-right: -1px;
+    margin-bottom: -1px;
     cursor: pointer;
   }
 
-  button:hover {
-    background-color: #ddd;
+  .boom.gris {
+    background-color: red;
   }
+  
+
+
+ 
   
