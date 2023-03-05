@@ -199,7 +199,7 @@
                     marquerMine()
                 }
                 )
-            }/*cellule.style.backGroundColor="green"*/
+            }
             box.appendChild(ligne);
         }
     }
@@ -280,9 +280,9 @@
         }
         else
         {
-            event.target.style.backgroundColor = "beige";
             if (plateau[nLigne][nCellule] > 0)
             {
+                event.target.style.backgroundColor = "beige";
                 event.target.innerText = plateau[nLigne][nCellule];
             }
             else
@@ -311,13 +311,32 @@
     //------------------------------------------------------------
     // Fonction récursive de contamination :----------------------
 
-    function contamination(nLigne, ncelllule)
+    function contamination(nLigne, nCellule)
     {
-        if (nLigne < 0 || nLigne == composants.nbreLignes || nCelllule < 0 || nCellule == composants.nbreCellules)
+        if (nLigne < 0 || nLigne == composants.nbreLignes || nCellule < 0 || nCellule == composants.nbreCellules)
         {
             return;
         }
         let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][date-cellule="${nCellule}"]`);
+        checkCase(nLigne, nCellule);
+
+        if (plateau[nLigne][nCellule] == 0)
+        {
+            event.target.style.backgroundColor = "blue";
+            contamination(nLigne - 1, nCellule - 1);
+            contamination(nLigne - 1, nCellule);
+            contamination(nLigne - 1, nCellule + 1);
+            contamination(nLigne, nCellule - 1);
+            contamination(nLigne, nCellule + 1);
+            contamination(nLigne + 1, nCellule - 1);
+            contamination(nLigne + 1, nCellule);
+            contamination(nLigne + 1, nCellule + 1);
+        }
+        else
+        {
+            event.target.style.backgroundColor = "yellow";
+            event.target.innerText = plateau[nLigne][nCellule];
+        }
     }
 
     //------------------------------------------------------------
