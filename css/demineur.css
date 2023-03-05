@@ -49,6 +49,9 @@ body {
 
 }
 
+.cell-empty {
+   background-color: lightblue; 
+}
 
 .cell-num {
     display: flex;
