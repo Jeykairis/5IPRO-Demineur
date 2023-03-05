@@ -18,7 +18,8 @@
             background-color: grey;
             border: 1px solid black;
         }
-        #table >   {
+
+        #table> {
             background-color: green;
         }
     </style>
@@ -36,6 +37,7 @@
 
     <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
     <table id="table"></table>
+    <p id="victoire"></p>
 </body>
 
 <script>
@@ -47,7 +49,8 @@
     {
         nbreLignes: 8,
         nbreCellules: 8,
-        nbreBombes: 10
+        nbreBombes: 10,
+        nbreVictoire: 54
     };
 
     const plateau = [];
@@ -58,35 +61,39 @@
 
     function facile()
     {
-        
+
         composants.nbreBombes = 10;
         composants.nbreLignes = 8;
         composants.nbreCellules = 8;
+        composants.nbreVictoire = 54;
         displayData();
     }
     function moyen()
     {
-        
+
         composants.nbreBombes = 15;
         composants.nbreLignes = 12;
         composants.nbreCellules = 12;
+        composants.nbreVictoire = 129;
         displayData();
     }
     function difficile()
     {
-    
+
         composants.nbreBombes = 20;
         composants.nbreLignes = 15;
         composants.nbreCellules = 15;
+        composants.nbreVictoire = 205;
         displayData();
     }
 
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Affichage des données :------------------------------------
-    function resetTable(){
-        let tb = document.querySelector("#table").innerHTML="";
-    
+    function resetTable()
+    {
+        let tb = document.querySelector("#table").innerHTML = "";
+
     }
     function displayData()
     {
@@ -159,20 +166,24 @@
                 cellule.setAttribute("data-cellule", j);
                 cellule.setAttribute("data-statut", "cachee")
                 cellule.setAttribute("data-flag", "faux")
-                if(plateau[i][j]=="B"){
+                if (plateau[i][j] == "B")
+                {
                     cellule.setAttribute("data-mine", "true");
                 }
-                else{
+                else
+                {
                     cellule.setAttribute("data-mine", "false");
                 }
                 // Ajout permet de cliquer : ↓
                 cellule.addEventListener("click", cliquage);
                 ligne.appendChild(cellule);
                 //ajout marqueur de mine
-            cellule.addEventListener("contextmenu",e => {e.preventDefault()
-                marquerMine()
-            }
-            ) 
+                cellule.addEventListener("contextmenu", e =>
+                {
+                    e.preventDefault()
+                    marquerMine()
+                }
+                )
             }/*cellule.style.backGroundColor="green"*/
             box.appendChild(ligne);
         }
@@ -244,33 +255,67 @@
     {
         let nligne = parseInt(event.target.getAttribute('data-ligne'));
         let ncellule = parseInt(event.target.getAttribute('data-cellule'));
-        let infoBoum="ouf";
-        if(event.target.getAttribute("data-mine")=="true"){
-            event.target.style.backgroundColor="red";
-            infoBoum="BOOUUMMM";
-        }
-        else if (event.target.getAttribute("data-mine")=="false")
+        if (event.target.getAttribute("data-statut") == "cachee" && plateau[nligne][ncellule] != "B")
         {
-        event.target.style.backgroundColor="beige"
-        event.target.innerText=plateau[nligne][ncellule];
+            event.target.setAttribute("data-statut", "revelee");
+            composants.nbreVictoire--;
+        }
+        let infoBoum = "ouf";
+        if (event.target.getAttribute("data-mine") == "true")
+        {
+            event.target.style.backgroundColor = "red";
+            infoBoum = "BOOUUMMM";
+        }
+        else if (event.target.getAttribute("data-mine") == "false")
+        {
+            event.target.style.backgroundColor = "beige"
+            event.target.innerText = plateau[nligne][ncellule];
         }
         console.log(nligne, ncellule, infoBoum);
+        checkVictoire();
     }
-    function marquerMine(){
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction marquage de mines :-------------------------------
+
+    function marquerMine()
+    {
         let estMarquee = event.target.getAttribute('data-flag');
-        if(estMarquee=="faux"){
-       event.target.style.backgroundColor="grey";
-       event.target.setAttribute("data-flag", "vrai");
+        if (estMarquee == "faux")
+        {
+            event.target.style.backgroundColor = "grey";
+            event.target.setAttribute("data-flag", "vrai");
         }
-        else if(estMarquee=="vrai") {
-        event.target.style.backgroundColor="green";
-        event.target.setAttribute("data-flag", "faux");
+        else if (estMarquee == "vrai")
+        {
+            event.target.style.backgroundColor = "green";
+            event.target.setAttribute("data-flag", "faux");
         }
     }
 
     //------------------------------------------------------------
-    //condition défaite
-    
+    //------------------------------------------------------------
+    //condition défaite :-----------------------------------------
+
+
+
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Condition victoire :---------------------------------------
+
+    function checkVictoire()
+    {
+        if (composants.nbreVictoire == 0)
+        {
+            document.querySelector("#victoire").innerText = "Victoire !";
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+
 </script>
 
 </html>
