@@ -148,7 +148,7 @@ const createHTMLGrid = (grid) => {
     // html = [divEl1, divEl2, divEl3, divEl4...] => .append([...])
     
 };
-/*
+
 // 5 - integration  des evenemnts de clics (dévoiler une cellule, ajouter un drapeau).
 const addEventListeners = (grid) => {
     const gridEl = document.querySelector('.grid');
