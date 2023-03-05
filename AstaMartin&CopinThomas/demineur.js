@@ -9,7 +9,11 @@ function main() {
         grid[bombs[i][0]][bombs[i][1]] = 9;
     }
     fixeIndexes(grid, bombs);
+    document.getElementById("remainingMines").innerHTML = bombs.length;
     displayGrid(grid);
+    let tilesClicked = 0;
+    let flag = false;
+    let gameOver = false;
     console.log(grid);
 }
 
@@ -103,10 +107,12 @@ function fixeIndexes(grid, bombs) {
 function displayGrid(myGrid) {
     for (let i = 0; i < myGrid.length; i++) {
         document.getElementById("mainDivID").appendChild(document.createElement("div")).setAttribute("id", "div" + i);
-        for (let j = myGrid.length-1; j >= 0 ; j--) {
-            document.getElementById("div"+i).appendChild(document.createElement("div")).setAttribute("id", "div"+i+j);
-            document.getElementById("div"+i+j).setAttribute("class", "flexbox-item");
-            document.getElementById("div"+i+j).innerHTML = myGrid[myGrid.length-1-j][i];
+        for (let j = myGrid.length - 1; j >= 0; j--) {
+            document.getElementById("div" + i).appendChild(document.createElement("div")).setAttribute("id", "div" + (myGrid.length - 1 - j) + i);
+            document.getElementById("div" + (myGrid.length - 1 - j) + i).setAttribute("class", "flexbox-item");
+            document.getElementById("div" + (myGrid.length - 1 - j) + i).classList.add("x" + myGrid[myGrid.length - 1 - j][i]);
+            document.getElementById("div" + (myGrid.length - 1 - j) + i).innerHTML = myGrid[myGrid.length - 1 - j][i];
+            document.getElementById("div" + (myGrid.length - 1 - j) + i).addEventListener("click", clickTile);
         }
     }
 }
