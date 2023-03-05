@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démineur</title>
     <style>
+        * {
+            background-color: ivory;
+        }
+        button {
+            background-color: lightgray;
+        }
         #table {
             border: 1px solid black;
             border-collapse: collapse;
@@ -34,10 +40,11 @@
 <body>
     <h1>Jeu du démineur</h1>
     <div id="setup">
-        <p>Nombre de mines : <span id="nbreMines"></span></p>
         <p>Nombre de lignes : <span id="nbreLignes"></span></p>
         <p>Nombre de colonnes : <span id="nbreCol"></span></p>
-
+    </div>
+    <div id="affichage">
+        <p>Nombre de mines : <span id="nbreMines"></span></p>
         <button onclick="facile()">Facile</button>
         <button onclick="moyen()">Moyen</button>
         <button onclick="difficile()">Difficile</button>
@@ -53,7 +60,6 @@
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Initialisation des données de construction :---------------
-
     const composants =
     {
         nbreLignes: 8,
@@ -63,6 +69,7 @@
     };
 
     const plateau = [];
+    let partieStatut = "";
 
     //------------------------------------------------------------
     //------------------------------------------------------------
@@ -110,6 +117,7 @@
         document.querySelector("#nbreMines").innerText = composants.nbreBombes;
         document.querySelector("#nbreLignes").innerText = composants.nbreLignes;
         document.querySelector("#nbreCol").innerText = composants.nbreCellules;
+        partieStatut = "";
     }
 
     let setup = document.querySelector("#setup");
@@ -267,20 +275,21 @@
     // Fonction lors du clic sur une cellule :--------------------
 
     function cliquage()
-    {
+    {   
         let nLigne = parseInt(event.target.getAttribute('data-ligne'));
         let nCellule = parseInt(event.target.getAttribute('data-cellule'));
         checkCase(nLigne, nCellule);
         let infoBoum = "ouf";
-        if (event.target.getAttribute("data-mine") == "true")
+        if (event.target.getAttribute("data-mine") == "true" && partieStatut !="terminee")
         {
             event.target.style.backgroundColor = "red";
+            event.target.setAttribute("data-statut", "revelee");
             infoBoum = "BOOUUMMM";
             defaite();
         }
-        else
+        else if (partieStatut !="terminee")
         {
-            event.target.style.backgroundColor = "beige";
+            event.target.style.backgroundColor="beige";
             if (plateau[nLigne][nCellule] > 0)
             {
                 event.target.innerText = plateau[nLigne][nCellule];
@@ -326,15 +335,16 @@
 
     function marquerMine()
     {
-        let estMarquee = event.target.getAttribute('data-flag');
-        if (estMarquee == "faux")
-        {
-            event.target.style.backgroundColor = "grey";
-            event.target.setAttribute("data-flag", "vrai");
-        }
-        else if (estMarquee == "vrai")
+        let estMarquee = event.target.getAttribute("data-flag");
+        let caseStatut = event.target.getAttribute("data-statut");
+        if (estMarquee == "faux" && caseStatut == "cachee" && partieStatut !="terminee")
         {
             event.target.style.backgroundColor = "green";
+            event.target.setAttribute("data-flag", "vrai");
+        }
+        else if (estMarquee == "vrai" && caseStatut == "cachee" && partieStatut !="terminee")
+        {
+            event.target.style.backgroundColor = "grey";
             event.target.setAttribute("data-flag", "faux");
         }
     }
@@ -348,6 +358,7 @@
         console.log("rip");
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
         document.querySelector("#arcom").style.visibility = "visible";
+        partieStatut = "terminee";
     }
 
 
@@ -361,6 +372,7 @@
         {
             document.querySelector("#conclusion").innerText = "Victoire !";
             document.querySelector("#arcom").style.visibility = "visible";
+            partieStatut = "terminee";
         }
     }
 
@@ -374,6 +386,7 @@
         resetTable();
         document.querySelector("#arcom").style.visibility = "hidden";
         document.querySelector("#conclusion").style.visibility = "hidden";
+        //partieStatut = "";
     }
 
     //------------------------------------------------------------
