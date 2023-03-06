@@ -280,7 +280,7 @@
     {
         let nLigne = parseInt(event.target.getAttribute('data-ligne'));
         let nCellule = parseInt(event.target.getAttribute('data-cellule'));
-        if (event.target.getAttribute("data-mine") == "true")
+        if (event.target.getAttribute("data-mine") == "true" && partieStatut != "terminee")
         {
             event.target.style.backgroundColor = "red";
             defaite();
@@ -435,6 +435,7 @@
         document.querySelector("#conclusion").style.visibility = "visible";
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
         partieStatut = "terminee";
+        minesRevelee();
     }
 
 
@@ -467,8 +468,19 @@
 
     //------------------------------------------------------------
     //------------------------------------------------------------
+    //Fonction devoiler mines :-----------------------------------
+    function minesRevelee(){
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            for (let j = 0; j < composants.nbreCellules; j++){
+                if(plateau[i][j] == "B"){
+                    let cellule=document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`)
+                    cellule.style.backgroundColor="red";
+                }
+            }
+        }
 
-
+    }
 </script>
 
 </html>
