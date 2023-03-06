@@ -3,16 +3,17 @@
     width: fit-content;
     text-align: center;
     border: 1px solid black;
-    background-color: lightgray;
+    background-color: rgb(176, 176, 176);
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0)
 }
 
 .flexbox-item {
+    color: rgb(176, 176, 176);
     width: 22.4px;
-    border: 1px, solid, black;
-    padding: 10px;
+    border: 1px solid black;
+    padding: 15px;
     font-size: 20px;
 }
 
@@ -21,38 +22,7 @@ h2 {
     text-align: center;
 }
 
-.tile-clicked {
-    background: darkgray;
-}
-
-.x1 {
-    color: blue;
-}
-
-.x2 {
-    color: green;
-}
-
-.x3 {
-    color: red;
-}
-
-.x4 {
-    color: navy;
-}
-
-.x5 {
-    color: brown;
-}
-
-.x6 {
-    color: teal;
-}
-
-.x7 {
-    color: black;
-}
-
-.x8 {
-    color: gray;
+::selection {
+    color: none;
+    background: none;
 }
