@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    background-color: indianred;
+    background-image: linear-gradient(to bottom right, #FF512F, #DD2476);
+    min-height: 100vh;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 .btn {   
