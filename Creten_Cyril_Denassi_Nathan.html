@@ -10,25 +10,36 @@
         * {
             background-color: ivory;
         }
+
         button {
             background-color: lightgray;
         }
+
+        body {
+            text-align: center;
+        }
+
         #table {
             border: 1px solid black;
             border-collapse: collapse;
+
         }
 
         td {
-            width: 20px;
-            height: 20px;
+            width: 35px;
+            height: 35px;
             background-color: grey;
-            border: 1px solid black;
+            border: 1px solid rgb(101, 101, 101);
             text-align: center;
             font-size: small;
+            border-style: inset;
+            border-width: 4px;
+            border-color: rgb(152, 152, 152);
         }
 
         #table {
-            background-color: green;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #arcom {
@@ -42,15 +53,12 @@
     <div id="setup">
         <p>Nombre de lignes : <span id="nbreLignes"></span></p>
         <p>Nombre de colonnes : <span id="nbreCol"></span></p>
-    </div>
-    <div id="affichage">
-        <p>Nombre de mines : <span id="nbreMines"></span></p>
         <button onclick="facile()">Facile</button>
         <button onclick="moyen()">Moyen</button>
         <button onclick="difficile()">Difficile</button>
-
         <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
     </div>
+    <p>Nombre de mines : <span id="nbreMines"></span></p>
     <table id="table"></table>
     <p id="conclusion"></p>
     <button id="arcom">Recommencer ?</button>
@@ -107,11 +115,6 @@
     //------------------------------------------------------------
     // Affichage des données :------------------------------------
 
-    function resetTable()
-    {
-        let tb = document.querySelector("#table").innerHTML = "";
-    }
-
     function displayData()
     {
         document.querySelector("#nbreMines").innerText = composants.nbreBombes;
@@ -120,7 +123,7 @@
         partieStatut = "";
     }
 
-    let setup = document.querySelector("#setup");
+
 
     document.querySelector("#arcom").addEventListener("click", recommence);
 
@@ -130,7 +133,7 @@
 
     function creation()
     {
-        setup.style.visibility = "hidden";
+        document.querySelector("#setup").style.visibility = "hidden";
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             plateau[i] = [];
@@ -141,7 +144,8 @@
         }
         etalage();
         creationPlatHTML();
-        partieStatut = "";
+        document.querySelector("#arcom").style.visibility = "visible";
+        partieStatut = "Nouvel essai";
     }
 
     //------------------------------------------------------------
@@ -186,8 +190,8 @@
             for (let j = 0; j < composants.nbreCellules; j++)
             {
                 let cellule = document.createElement("td");
-                cellule.setAttribute("data-ligne", i);
-                cellule.setAttribute("data-cellule", j);
+                cellule.setAttribute("data-Ligne", i);
+                cellule.setAttribute("data-Cellule", j);
                 cellule.setAttribute("data-statut", "cachee")
                 cellule.setAttribute("data-flag", "faux")
                 if (plateau[i][j] == "B")
@@ -198,7 +202,6 @@
                 {
                     cellule.setAttribute("data-mine", "false");
                 }
-                // Ajout permet de cliquer : ↓
                 cellule.addEventListener("click", cliquage);
                 ligne.appendChild(cellule);
                 //ajout marqueur de mine
@@ -208,7 +211,7 @@
                     marquerMine()
                 }
                 )
-            }/*cellule.style.backGroundColor="green"*/
+            }
             box.appendChild(ligne);
         }
     }
@@ -219,7 +222,6 @@
 
     function numeros()
     {
-        resetTable();
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             for (let j = 0; j < composants.nbreCellules; j++)
@@ -275,23 +277,21 @@
     // Fonction lors du clic sur une cellule :--------------------
     
     function cliquage()
-    {   
+    {
         let nLigne = parseInt(event.target.getAttribute('data-ligne'));
         let nCellule = parseInt(event.target.getAttribute('data-cellule'));
-        checkCase(nLigne, nCellule);
-        let infoBoum = "ouf";
-        if (event.target.getAttribute("data-mine") == "true" && partieStatut !="terminee")
+        if (event.target.getAttribute("data-mine") == "true")
         {
             event.target.style.backgroundColor = "red";
-            event.target.setAttribute("data-statut", "revelee");
-            infoBoum = "BOOUUMMM";
             defaite();
         }
-        else if (partieStatut !="terminee")
+        else if (partieStatut != "terminee")
         {
-            event.target.style.backgroundColor="beige";
+            let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+
             if (plateau[nLigne][nCellule] > 0)
             {
+                checkcachee(nLigne, nCellule);
                 event.target.innerText = plateau[nLigne][nCellule];
             }
             else
@@ -299,34 +299,59 @@
                 contamination(nLigne, nCellule);
             }
         }
-        console.log(nLigne, nCellule, infoBoum);
-        checkVictoire();
     }
-
-    //------------------------------------------------------------
-    //------------------------------------------------------------
-    // Fonction checkage de case :--------------------------------
-
-    function checkCase(nLigne, nCellule)
-    {
-        if (event.target.getAttribute("data-statut") == "cachee" && plateau[nLigne][nCellule] != "B")
-        {
-            event.target.setAttribute("data-statut", "revelee");
-            composants.nbreVictoire--;
-        }
-    }
-
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Fonction récursive de contamination :----------------------
 
-    function contamination(nLigne, ncelllule)
+    function contamination(nLigne, nCellule)
     {
-        if (nLigne < 0 || nLigne == composants.nbreLignes || nCelllule < 0 || nCellule == composants.nbreCellules)
+        if (nLigne < 0 || nLigne == composants.nbreLignes || nCellule < 0 || nCellule == composants.nbreCellules)
         {
             return;
         }
-        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][date-cellule="${nCellule}"]`);
+
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+
+        if (celActuelle.getAttribute("data-statut") == "revelee")
+        {
+            return;
+        }
+
+        checkcachee(nLigne, nCellule);
+
+        if (plateau[nLigne][nCellule] > 0)
+        {
+            celActuelle.innerText = plateau[nLigne][nCellule];
+            return;
+        }
+        else
+        {
+            contamination(nLigne - 1, nCellule - 1);
+            contamination(nLigne - 1, nCellule);
+            contamination(nLigne - 1, nCellule + 1);
+            contamination(nLigne, nCellule - 1);
+            contamination(nLigne, nCellule + 1);
+            contamination(nLigne + 1, nCellule - 1);
+            contamination(nLigne + 1, nCellule);
+            contamination(nLigne + 1, nCellule + 1);
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction checkCachée :-------------------------------------
+
+    function checkcachee(nLigne, nCellule)
+    {
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+        if (celActuelle.getAttribute("data-statut") == "cachee")
+        {
+            celActuelle.setAttribute("data-statut", "revelee");
+            celActuelle.style.backgroundColor = "beige";
+            composants.nbreVictoire--;
+            checkVictoire();
+        }
     }
     function propagation()
     {
@@ -388,12 +413,12 @@
     {
         let estMarquee = event.target.getAttribute("data-flag");
         let caseStatut = event.target.getAttribute("data-statut");
-        if (estMarquee == "faux" && caseStatut == "cachee" && partieStatut !="terminee")
+        if (estMarquee == "faux" && caseStatut == "cachee" && partieStatut != "terminee")
         {
             event.target.style.backgroundColor = "green";
             event.target.setAttribute("data-flag", "vrai");
         }
-        else if (estMarquee == "vrai" && caseStatut == "cachee" && partieStatut !="terminee")
+        else if (estMarquee == "vrai" && caseStatut == "cachee" && partieStatut != "terminee")
         {
             event.target.style.backgroundColor = "grey";
             event.target.setAttribute("data-flag", "faux");
@@ -402,13 +427,13 @@
 
     //------------------------------------------------------------
     //------------------------------------------------------------
-    //condition défaite :-----------------------------------------
+    // condition défaite :-----------------------------------------
 
     function defaite()
     {
         console.log("rip");
+        document.querySelector("#conclusion").style.visibility = "visible";
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
-        document.querySelector("#arcom").style.visibility = "visible";
         partieStatut = "terminee";
     }
 
@@ -422,7 +447,7 @@
         if (composants.nbreVictoire == 0)
         {
             document.querySelector("#conclusion").innerText = "Victoire !";
-            document.querySelector("#arcom").style.visibility = "visible";
+            document.querySelector("#conclusion").style.visibility = "visible";
             partieStatut = "terminee";
         }
     }
@@ -433,11 +458,11 @@
 
     function recommence()
     {
-        setup.style.visibility = "visible";
-        resetTable();
-        document.querySelector("#arcom").style.visibility = "hidden";
+        document.querySelector("#setup").style.visibility = "visible";
         document.querySelector("#conclusion").style.visibility = "hidden";
-        //partieStatut = "";
+        document.querySelector("#arcom").style.visibility = "hidden";
+        partieStatut = "Nouvel essai";
+        document.querySelector("#table").innerHTML = "";
     }
 
     //------------------------------------------------------------
