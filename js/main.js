@@ -148,10 +148,11 @@ const createHTMLGrid = (grid) => {
     // html = [divEl1, divEl2, divEl3, divEl4...] => .append([...])
     
 };
-
+createHTMLGrid(grid);
 // 5 - integration  des evenemnts de clics (dévoiler une cellule, ajouter un drapeau).
 const addEventListeners = (grid) => {
     const gridEl = document.querySelector('.grid');
+    console.log("kkkkk",grid);
     gridEl.addEventListener('click',({ target }) => {
         if (!target.matches(".cell-hidden")){
             return;
@@ -185,7 +186,7 @@ const addEventListeners = (grid) => {
                             // cell-empty
                             document.querySelector('')
                            }
-                           if (typeof grid[rowIndex][colIndex] === 1){
+                           //if (typeof grid[rowIndex][colIndex] === 1){
 
                            }
                         }
@@ -209,5 +210,5 @@ const addEventListeners = (grid) => {
        }
     });
 }
-*/
+addEventListeners(grid);
 console.table(grid);
