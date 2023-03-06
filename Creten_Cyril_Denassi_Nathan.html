@@ -15,22 +15,31 @@
             background-color: lightgray;
         }
 
+        body {
+            text-align: center;
+        }
+
         #table {
             border: 1px solid black;
             border-collapse: collapse;
+
         }
 
         td {
-            width: 20px;
-            height: 20px;
+            width: 35px;
+            height: 35px;
             background-color: grey;
-            border: 1px solid black;
+            border: 1px solid rgb(101, 101, 101);
             text-align: center;
             font-size: small;
+            border-style: inset;
+            border-width: 4px;
+            border-color: rgb(152, 152, 152);
         }
 
         #table {
-            background-color: green;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #arcom {
@@ -44,15 +53,12 @@
     <div id="setup">
         <p>Nombre de lignes : <span id="nbreLignes"></span></p>
         <p>Nombre de colonnes : <span id="nbreCol"></span></p>
-    </div>
-    <div id="affichage">
-        <p>Nombre de mines : <span id="nbreMines"></span></p>
         <button onclick="facile()">Facile</button>
         <button onclick="moyen()">Moyen</button>
         <button onclick="difficile()">Difficile</button>
-
         <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
     </div>
+    <p>Nombre de mines : <span id="nbreMines"></span></p>
     <table id="table"></table>
     <p id="conclusion"></p>
     <button id="arcom">Recommencer ?</button>
@@ -127,8 +133,7 @@
 
     function creation()
     {
-        let setup = document.querySelector("#setup");
-        setup.style.visibility = "hidden";
+        document.querySelector("#setup").style.visibility = "hidden";
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             plateau[i] = [];
@@ -139,6 +144,7 @@
         }
         etalage();
         creationPlatHTML();
+        document.querySelector("#arcom").style.visibility = "visible";
         partieStatut = "Nouvel essai";
     }
 
@@ -196,7 +202,6 @@
                 {
                     cellule.setAttribute("data-mine", "false");
                 }
-                // Ajout permet de cliquer : ↓
                 cellule.addEventListener("click", cliquage);
                 ligne.appendChild(cellule);
                 //ajout marqueur de mine
@@ -283,19 +288,18 @@
         }
         else if (partieStatut != "terminee")
         {
-            event.target.style.backgroundColor = "beige";
+            let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+
             if (plateau[nLigne][nCellule] > 0)
             {
+                checkcachee(nLigne, nCellule);
                 event.target.innerText = plateau[nLigne][nCellule];
-                let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
-                console.log(`celActuelle : ${celActuelle}`);
             }
             else
             {
                 contamination(nLigne, nCellule);
             }
         }
-        checkVictoire();
     }
     //------------------------------------------------------------
     //------------------------------------------------------------
@@ -303,25 +307,19 @@
 
     function contamination(nLigne, nCellule)
     {
-        console.log(`Debut conta : nLigne: ${nLigne}, nCellule: ${nCellule}`);
-        console.log(`type : ${typeof nLigne}, ${typeof nCellule}`);
-
         if (nLigne < 0 || nLigne == composants.nbreLignes || nCellule < 0 || nCellule == composants.nbreCellules)
         {
             return;
         }
 
         let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
-        console.log(`celActuelle : ${celActuelle}`);
 
         if (celActuelle.getAttribute("data-statut") == "revelee")
         {
             return;
         }
 
-        celActuelle.setAttribute("data-statut", "revelee");
-        celActuelle.style.backgroundColor = "beige";
-        composants.nbreVictoire--;
+        checkcachee(nLigne, nCellule);
 
         if (plateau[nLigne][nCellule] > 0)
         {
@@ -338,6 +336,22 @@
             contamination(nLigne + 1, nCellule - 1);
             contamination(nLigne + 1, nCellule);
             contamination(nLigne + 1, nCellule + 1);
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction checkCachée :-------------------------------------
+
+    function checkcachee(nLigne, nCellule)
+    {
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+        if (celActuelle.getAttribute("data-statut") == "cachee")
+        {
+            celActuelle.setAttribute("data-statut", "revelee");
+            celActuelle.style.backgroundColor = "beige";
+            composants.nbreVictoire--;
+            checkVictoire();
         }
     }
 
@@ -370,7 +384,6 @@
         console.log("rip");
         document.querySelector("#conclusion").style.visibility = "visible";
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
-        document.querySelector("#arcom").style.visibility = "visible";
         partieStatut = "terminee";
     }
 
@@ -384,7 +397,7 @@
         if (composants.nbreVictoire == 0)
         {
             document.querySelector("#conclusion").innerText = "Victoire !";
-            document.querySelector("#arcom").style.visibility = "visible";
+            document.querySelector("#conclusion").style.visibility = "visible";
             partieStatut = "terminee";
         }
     }
@@ -395,10 +408,9 @@
 
     function recommence()
     {
-        let setup = document.querySelector("#setup");
-        setup.style.visibility = "visible";
-        document.querySelector("#arcom").style.visibility = "hidden";
+        document.querySelector("#setup").style.visibility = "visible";
         document.querySelector("#conclusion").style.visibility = "hidden";
+        document.querySelector("#arcom").style.visibility = "hidden";
         partieStatut = "Nouvel essai";
         document.querySelector("#table").innerHTML = "";
     }
