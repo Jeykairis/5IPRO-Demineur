@@ -109,11 +109,6 @@
     //------------------------------------------------------------
     // Affichage des données :------------------------------------
 
-    function resetTable()
-    {
-        let tb = document.querySelector("#table").innerHTML = "";
-    }
-
     function displayData()
     {
         document.querySelector("#nbreMines").innerText = composants.nbreBombes;
@@ -122,7 +117,7 @@
         partieStatut = "";
     }
 
-    let setup = document.querySelector("#setup");
+
 
     document.querySelector("#arcom").addEventListener("click", recommence);
 
@@ -132,6 +127,7 @@
 
     function creation()
     {
+        let setup = document.querySelector("#setup");
         setup.style.visibility = "hidden";
         for (let i = 0; i < composants.nbreLignes; i++)
         {
@@ -143,7 +139,7 @@
         }
         etalage();
         creationPlatHTML();
-        partieStatut = "";
+        partieStatut = "Nouvel essai";
     }
 
     //------------------------------------------------------------
@@ -188,8 +184,8 @@
             for (let j = 0; j < composants.nbreCellules; j++)
             {
                 let cellule = document.createElement("td");
-                cellule.setAttribute("data-ligne", i);
-                cellule.setAttribute("data-cellule", j);
+                cellule.setAttribute("data-Ligne", i);
+                cellule.setAttribute("data-Cellule", j);
                 cellule.setAttribute("data-statut", "cachee")
                 cellule.setAttribute("data-flag", "faux")
                 if (plateau[i][j] == "B")
@@ -221,7 +217,6 @@
 
     function numeros()
     {
-        resetTable();
         for (let i = 0; i < composants.nbreLignes; i++)
         {
             for (let j = 0; j < composants.nbreCellules; j++)
@@ -281,13 +276,9 @@
     {
         let nLigne = parseInt(event.target.getAttribute('data-ligne'));
         let nCellule = parseInt(event.target.getAttribute('data-cellule'));
-        checkCase(nLigne, nCellule);
-        let infoBoum = "ouf";
-        if (event.target.getAttribute("data-mine") == "true" && partieStatut != "terminee")
+        if (event.target.getAttribute("data-mine") == "true")
         {
             event.target.style.backgroundColor = "red";
-            event.target.setAttribute("data-statut", "revelee");
-            infoBoum = "BOOUUMMM";
             defaite();
         }
         else if (partieStatut != "terminee")
@@ -295,47 +286,50 @@
             event.target.style.backgroundColor = "beige";
             if (plateau[nLigne][nCellule] > 0)
             {
-                event.target.style.backgroundColor = "beige";
                 event.target.innerText = plateau[nLigne][nCellule];
+                let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+                console.log(`celActuelle : ${celActuelle}`);
             }
             else
             {
                 contamination(nLigne, nCellule);
             }
         }
-        console.log(nLigne, nCellule, infoBoum);
         checkVictoire();
     }
-
-    //------------------------------------------------------------
-    //------------------------------------------------------------
-    // Fonction checkage de case :--------------------------------
-
-    function checkCase(nLigne, nCellule)
-    {
-        if (event.target.getAttribute("data-statut") == "cachee" && plateau[nLigne][nCellule] != "B")
-        {
-            event.target.setAttribute("data-statut", "revelee");
-            composants.nbreVictoire--;
-        }
-    }
-
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Fonction récursive de contamination :----------------------
 
     function contamination(nLigne, nCellule)
     {
+        console.log(`Debut conta : nLigne: ${nLigne}, nCellule: ${nCellule}`);
+        console.log(`type : ${typeof nLigne}, ${typeof nCellule}`);
+
         if (nLigne < 0 || nLigne == composants.nbreLignes || nCellule < 0 || nCellule == composants.nbreCellules)
         {
             return;
         }
-        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][date-cellule="${nCellule}"]`);
-        checkCase(nLigne, nCellule);
 
-        if (plateau[nLigne][nCellule] == 0)
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+        console.log(`celActuelle : ${celActuelle}`);
+
+        if (celActuelle.getAttribute("data-statut") == "revelee")
         {
-            event.target.style.backgroundColor = "blue";
+            return;
+        }
+
+        celActuelle.setAttribute("data-statut", "revelee");
+        celActuelle.style.backgroundColor = "beige";
+        composants.nbreVictoire--;
+
+        if (plateau[nLigne][nCellule] > 0)
+        {
+            celActuelle.innerText = plateau[nLigne][nCellule];
+            return;
+        }
+        else
+        {
             contamination(nLigne - 1, nCellule - 1);
             contamination(nLigne - 1, nCellule);
             contamination(nLigne - 1, nCellule + 1);
@@ -344,11 +338,6 @@
             contamination(nLigne + 1, nCellule - 1);
             contamination(nLigne + 1, nCellule);
             contamination(nLigne + 1, nCellule + 1);
-        }
-        else
-        {
-            event.target.style.backgroundColor = "yellow";
-            event.target.innerText = plateau[nLigne][nCellule];
         }
     }
 
@@ -374,11 +363,12 @@
 
     //------------------------------------------------------------
     //------------------------------------------------------------
-    //condition défaite :-----------------------------------------
+    // condition défaite :-----------------------------------------
 
     function defaite()
     {
         console.log("rip");
+        document.querySelector("#conclusion").style.visibility = "visible";
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
         document.querySelector("#arcom").style.visibility = "visible";
         partieStatut = "terminee";
@@ -405,11 +395,12 @@
 
     function recommence()
     {
+        let setup = document.querySelector("#setup");
         setup.style.visibility = "visible";
-        resetTable();
         document.querySelector("#arcom").style.visibility = "hidden";
         document.querySelector("#conclusion").style.visibility = "hidden";
-        //partieStatut = "";
+        partieStatut = "Nouvel essai";
+        document.querySelector("#table").innerHTML = "";
     }
 
     //------------------------------------------------------------
