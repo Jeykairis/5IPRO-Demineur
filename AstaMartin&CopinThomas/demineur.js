@@ -104,12 +104,12 @@ function fixeIndexes(grid, bombs) {
 function displayGrid(myGrid) {
     for (let i = 0; i < myGrid.length; i++) {
         document.getElementById("mainDivID").appendChild(document.createElement("div")).setAttribute("id", "div" + i);
-        for (let j = myGrid.length - 1; j >= 0; j--) {
-            document.getElementById("div" + i).appendChild(document.createElement("div")).setAttribute("id", "div" + (myGrid.length - 1 - j) + i);
-            document.getElementById("div" + (myGrid.length - 1 - j) + i).setAttribute("class", "flexbox-item");
-            document.getElementById("div" + (myGrid.length - 1 - j) + i).innerHTML = myGrid[myGrid.length - 1 - j][i];
-            document.getElementById("div" + (myGrid.length - 1 - j) + i).addEventListener("click", revealTile);
-            document.getElementById("div" + (myGrid.length - 1 - j) + i).addEventListener("contextmenu", dropFlag);
+        for (let j = 0; j < myGrid.length; j++) {
+            document.getElementById("div" + i).appendChild(document.createElement("div")).setAttribute("id", "div" + j + "," + i);
+            document.getElementById("div" + j + "," + i).setAttribute("class", "flexbox-item");
+            document.getElementById("div" + j + "," + i).innerHTML = myGrid[j][i];
+            document.getElementById("div" + j + "," + i).addEventListener("click", revealTile);
+            document.getElementById("div" + j + "," + i).addEventListener("contextmenu", dropFlag);
         }
     }
 }
@@ -160,7 +160,7 @@ function dropFlag() {
             this.style.fontSize = "16.65px";
             document.getElementById("remainingMines").innerHTML--;
         }
-        else{
+        else {
             if (this.innerHTML == 1) {
                 this.style.color = "blue";
             }
@@ -189,10 +189,12 @@ function dropFlag() {
                 this.style.color = "lightgray";
                 this.style.backgroundColor = "lightgray";
             }
-            document.getElementById("remainingMines").innerHTML = "Il n'y avait pas de bombe ici !"
-            document.getElementById("titre").innerHTML = "Vous avez perdu";
+            if (this.style.color != "rgb(176, 176, 176)") {
+                document.getElementById("remainingMines").innerHTML = "Il n'y avait pas de bombe ici !"
+                document.getElementById("titre").innerHTML = "Vous avez perdu";
+            }
         }
-        if(document.getElementById("remainingMines").innerHTML == 0){
+        if (document.getElementById("remainingMines").innerHTML == 0) {
             document.getElementById("remainingMines").innerHTML = "Vous avez trouvé toutes les bombes !"
             document.getElementById("titre").innerHTML = "Vous avez gagné"
         }
