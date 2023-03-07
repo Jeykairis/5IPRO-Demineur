@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience</title>
+    <link rel="stylesheet" href="Experience/Experience.css">
+</head>
+
+<body>
+    <h1>Jeu du démineur</h1>
+    <div id="setup">
+        <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+        <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+        <button onclick="facile()">Facile</button>
+        <button onclick="moyen()">Moyen</button>
+        <button onclick="difficile()">Difficile</button>
+        <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
+    </div>
+    <p>Nombre de mines : <span id="nbreMines"></span></p>
+    <table id="table"></table>
+    <p id="conclusion"></p>
+    <button id="arcom">Recommencer ?</button>
+    <script src="/Experience/Experience.js"></script>
+</body>
+
+</html>
