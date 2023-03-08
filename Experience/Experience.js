@@ -1,6 +1,8 @@
 
 const plateau = [];
 
+let partieStatut = false;
+
 const composants =
 {
     nbreLignes: 8,
@@ -46,13 +48,13 @@ function arcom()
     document.querySelector("#arcom").style.visibility = "hidden";
     document.querySelector("#conclusion").innerText = "";
     document.querySelector("#paraminerestant").style.visibility = "hidden";
-    //partieStatut = "Nouvel essai";
     document.querySelector("#table").innerHTML = "";
 }
 
 function creation()
 {
     plateau.length = 0;
+    partieStatut = true;
     document.querySelector("#setup").style.visibility = "hidden";
     document.querySelector("#arcom").style.visibility = "visible";
     document.querySelector("#paraminerestant").style.visibility = "visible";
@@ -74,7 +76,7 @@ function creation()
     document.querySelector("#nbreRestant").innerText = calculMine();
     minage();
     plateauHTML();
-    revelation();
+    //revelation();
     console.log(plateau);
 }
 
@@ -155,38 +157,44 @@ function plateauHTML()
 
 function marquage()
 {
-    let nLigne = parseInt(event.target.getAttribute("data-ligne"));
-    let nCellule = parseInt(event.target.getAttribute("data-cellule"));
-    let celActuelle = event.target;
-    console.log(celActuelle, nLigne, nCellule, plateau[nLigne][nCellule].flag);
-    if (plateau[nLigne][nCellule].statut == "revelee")
+    if (partieStatut)
     {
-        return;
+        let nLigne = parseInt(event.target.getAttribute("data-ligne"));
+        let nCellule = parseInt(event.target.getAttribute("data-cellule"));
+        let celActuelle = event.target;
+        console.log(celActuelle, nLigne, nCellule, plateau[nLigne][nCellule].flag);
+        if (plateau[nLigne][nCellule].statut == "revelee")
+        {
+            return;
+        }
+        if (plateau[nLigne][nCellule].flag == false)
+        {
+            plateau[nLigne][nCellule].flag = true;
+            celActuelle.style.backgroundColor = "green";
+        }
+        else
+        {
+            plateau[nLigne][nCellule].flag = false;
+            celActuelle.style.backgroundColor = "grey";
+        }
+        document.querySelector("#nbreRestant").innerText = calculMine();
     }
-    if (plateau[nLigne][nCellule].flag == false)
-    {
-        plateau[nLigne][nCellule].flag = true;
-        celActuelle.style.backgroundColor = "green";
-    }
-    else
-    {
-        plateau[nLigne][nCellule].flag = false;
-        celActuelle.style.backgroundColor = "grey";
-    }
-    document.querySelector("#nbreRestant").innerText = calculMine();
 }
 
 function cliquage(event)
 {
-    let nLigne = parseInt(event.target.getAttribute("data-ligne"));
-    let nCellule = parseInt(event.target.getAttribute("data-cellule"));
-    if (plateau[nLigne][nCellule].mine == true)
+    if (partieStatut)
     {
-        defaite();
-    }
-    else
-    {
-        contagion(nLigne, nCellule);
+        let nLigne = parseInt(event.target.getAttribute("data-ligne"));
+        let nCellule = parseInt(event.target.getAttribute("data-cellule"));
+        if (plateau[nLigne][nCellule].mine == true)
+        {
+            defaite();
+        }
+        else
+        {
+            contagion(nLigne, nCellule);
+        }
     }
 }
 
@@ -206,12 +214,8 @@ function contagion(nLigne, nCellule)
     {
         plateau[nLigne][nCellule].flag = false;
         document.querySelector("#nbreRestant").innerText = calculMine();
-        celActuelle.style.backgroundColor = "beige";
     }
-    else
-    {
-        celActuelle.style.backgroundColor = "beige";
-    }
+    celActuelle.style.backgroundColor = "beige";
     if (plateau[nLigne][nCellule].danger > 0)
     {
         celActuelle.innerText = plateau[nLigne][nCellule].danger;
@@ -256,12 +260,13 @@ function calculMine()
 function checkVictoire()
 {
     composants.nbreVictoire--;
-    console.log(`nbreVictoire = ${composants.nbreVictoire}`);
+    //console.log(`nbreVictoire = ${composants.nbreVictoire}`);
     if (composants.nbreVictoire == 0)
     {
         document.querySelector("#conclusion").innerText = "Victoire !";
         document.querySelector("#conclusion").style.visibility = "visible";
         revelation();
+        partieStatut = false;
     }
 }
 
@@ -271,6 +276,7 @@ function defaite()
     document.querySelector("#conclusion").style.visibility = "visible";
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
     revelation();
+    partieStatut = false;
 }
 
 function revelation()
