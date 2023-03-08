@@ -185,10 +185,11 @@ function plateauHTML()
     }
 }
 
+// Fonction mère
 // Fonction de marquage de cases suspectes à l'aide du clic droit qui les repeindra en vert (ou gris)
-// Uniquement applicable sur des cases encore non révélées et leur changera la propriété 'flag' de l'objet du plateau 2d correspondant aux coordonnées
-// Une fonction sera appelée à la fin pour calculer le nombre théorique de mines restantes basé sur un compteur de 'flag == true' présents dans le plateau
-// Étage cliquage(): 1.1
+// Uniquement applicable sur des cases encore non révélées et leur change la propriété 'flag' de l'objet de l'array 2d correspondant aux coordonnées
+// Une fonction sera appelée à la fin pour calculer le nombre théorique de mines restantes à repérer
+// Étage marquage(): 1
 function marquage()
 {
     if (partieStatut)
@@ -284,7 +285,7 @@ function contagion(nLigne, nCellule)
 // Elle passe en revue le tableau 2d en quête d'objets dont leur propriété 'flag == true' et en calcule la récurence dans un compteur
 // La différence entre le nombre total réel de mines et ce compteur est alors renvoyée comme valeur sortante
 // Dans le cas où cette valeur serait négative, la valeur renvoyée est alors '0'
-// Étages multiples
+// Étage marquage(): 1.1
 function calculMine()
 {
     let compteur = 0;
