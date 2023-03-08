@@ -33,13 +33,13 @@
     td:hover
     {
         border-color: rgb(130, 130, 130);
-        background-color: rgb(135, 135, 135);
+        background-color: rgb(123, 123, 123);
     }
 
     td:active
     {
-        border-color: rgb(92, 92, 92);
-        background-color: rgba(128, 128, 128);
+        border-width: 2px;
+        border-color: rgb(61, 61, 61);
     }
 
     #table
