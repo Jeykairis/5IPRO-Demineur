@@ -9,7 +9,6 @@ const composants =
     nbreVictoire: 54
 };
 
-
 function facile()
 {
     composants.nbreMines = 10;
@@ -273,8 +272,6 @@ function defaite()
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
     revelation();
 }
-
-
 
 function revelation()
 {
