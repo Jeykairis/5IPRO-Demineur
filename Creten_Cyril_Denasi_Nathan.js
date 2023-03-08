@@ -354,7 +354,14 @@ function revelation()
             if (plateau[i][j].mine == true)
             {
                 let celActuelle = document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`);
-                celActuelle.style.backgroundColor = "red";
+                if (composants.nbreVictoire == 0)
+                {
+                    celActuelle.style.backgroundColor = "green";
+                }
+                else
+                {
+                    celActuelle.style.backgroundColor = "red";
+                }
             }
         }
     }
