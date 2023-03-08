@@ -1,6 +1,3 @@
-//-----------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------
-// Initialisation des données de construction :--------------------------------------------------------
 
 const plateau = [];
 
@@ -44,14 +41,20 @@ function refreshInfos()
     document.querySelector("#nbreCol").innerText = composants.nbreCellules;
 }
 
-//-----------------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------------
-// Création du plateau 2D JS :-------------------------------------------------------------------------
+function arcom()
+{
+    document.querySelector("#setup").style.visibility = "visible";
+    document.querySelector("#arcom").style.visibility = "hidden";
+    document.querySelector("#conclusion").innerText = "";
+    //partieStatut = "Nouvel essai";
+    document.querySelector("#table").innerHTML = "";
+}
 
 function creation()
 {
     plateau.length = 0;
     document.querySelector("#setup").style.visibility = "hidden";
+    document.querySelector("#arcom").style.visibility = "visible";
     for (let i = 0; i < composants.nbreLignes; i++)
     {
         plateau[i] = [];
@@ -69,7 +72,7 @@ function creation()
     composants.nbreVictoire = (composants.nbreLignes * composants.nbreCellules) - composants.nbreMines;
     minage();
     plateauHTML();
-    minesRevelee();
+    revelation();
     console.log(plateau);
 }
 
@@ -134,7 +137,8 @@ function plateauHTML()
         for (let j = 0; j < composants.nbreCellules; j++)
         {
             let nCellule = document.createElement("td");
-            nCellule.setAttribute("id", `${i}-${j}`);
+            nCellule.setAttribute("data-ligne", i);
+            nCellule.setAttribute("data-cellule", j)
             nCellule.addEventListener("click", cliquage);
             nLigne.appendChild(nCellule);
         }
@@ -144,19 +148,15 @@ function plateauHTML()
 
 function cliquage(event)
 {
-    let nLigne = parseInt(event.target.getAttribute("id").substr(0, 1));
-    let nCellule = parseInt(event.target.getAttribute("id").substr(2, 1));
-    console.log(nLigne, nCellule);
+    let nLigne = parseInt(event.target.getAttribute("data-ligne"));
+    let nCellule = parseInt(event.target.getAttribute("data-cellule"));
     if (plateau[nLigne][nCellule].mine == true)
     {
-        event.target.style.backgroundColor = "red";
         defaite();
     }
     else
     {
         contagion(nLigne, nCellule);
-        //tant que le clic est pressé, la background color est légèrement assombrie
-        //reste..
     }
 }
 
@@ -170,7 +170,7 @@ function contagion(nLigne, nCellule)
     {
         return;
     }
-    let celActuelle = document.querySelector(`[id="${nLigne}-${nCellule}"]`);
+    let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
     plateau[nLigne][nCellule].statut = "revelee";
     celActuelle.style.backgroundColor = "beige";
     if (plateau[nLigne][nCellule].danger > 0)
@@ -199,6 +199,7 @@ function checkVictoire()
     {
         document.querySelector("#conclusion").innerText = "Victoire !";
         document.querySelector("#conclusion").style.visibility = "visible";
+        revelation();
     }
 }
 
@@ -207,10 +208,12 @@ function defaite()
     console.log("rip");
     document.querySelector("#conclusion").style.visibility = "visible";
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
-    minesRevelee();
+    revelation();
 }
 
-function minesRevelee()
+
+
+function revelation()
 {
     for (let i = 0; i < composants.nbreLignes; i++)
     {
@@ -218,7 +221,7 @@ function minesRevelee()
         {
             if (plateau[i][j].mine == true)
             {
-                let celActuelle = document.querySelector(`[id="${i}-${j}"]`)
+                let celActuelle = document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`);
                 celActuelle.style.backgroundColor = "red";
             }
         }

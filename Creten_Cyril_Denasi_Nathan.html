@@ -354,57 +354,6 @@
             checkVictoire();
         }
     }
-    function propagation()
-    {
-        for (let i = 0; i < composants.nbreLignes; i++)
-        {
-            for (let j = 0; j < composants.nbreCellules; j++)
-            {
-                if (plateau[i][j] !== "B")
-                {
-                    for (let k = i - 1; compteurI <= 3; compteurI++)
-                    {
-                        if (k < 0)
-                        {
-                            k++;
-                            continue;
-                        }
-                        if (k >= composants.nbreLignes)
-                        {
-                            compteurI = 4;
-                            continue;
-                        }
-                        let compteurJ = 1;
-                        for (let l = j - 1; compteurJ <= 3; compteurJ++)
-                        {
-                            if (l < 0)
-                            {
-                                l++;
-                                continue;
-                            }
-                            if (l >= composants.nbreCellules)
-                            {
-                                compteurJ = 4;
-                                continue;
-                            }
-                            if (plateau[k][l] == "B")
-                            {
-                                l++;
-                                continue;
-                            }
-                            else
-                            {
-                                plateau[k][l]++;
-                                l++;
-                            }
-                        }
-                        k++;
-                    }
-                }
-            }
-        }
-        console.table(plateau);
-    }
 
     //------------------------------------------------------------
     //------------------------------------------------------------
@@ -432,10 +381,8 @@
 
     function defaite()
     {
-        console.log("rip");
-        document.querySelector("#conclusion").style.visibility = "visible";
         document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
-        partieStatut = "terminee";
+        //partieStatut = "terminee";
         minesRevelee();
     }
 
@@ -449,8 +396,7 @@
         if (composants.nbreVictoire == 0)
         {
             document.querySelector("#conclusion").innerText = "Victoire !";
-            document.querySelector("#conclusion").style.visibility = "visible";
-            partieStatut = "terminee";
+            //partieStatut = "terminee";
         }
     }
 
@@ -461,9 +407,9 @@
     function recommence()
     {
         document.querySelector("#setup").style.visibility = "visible";
-        document.querySelector("#conclusion").style.visibility = "hidden";
         document.querySelector("#arcom").style.visibility = "hidden";
-        partieStatut = "Nouvel essai";
+        document.querySelector("#conclusion").innerText = "";
+        //partieStatut = "Nouvel essai";
         document.querySelector("#table").innerHTML = "";
     }
 
