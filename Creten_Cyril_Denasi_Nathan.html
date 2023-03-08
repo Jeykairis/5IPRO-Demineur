@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!--version branch 2-->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -275,7 +276,7 @@
     //------------------------------------------------------------
     //------------------------------------------------------------
     // Fonction lors du clic sur une cellule :--------------------
-    
+
     function cliquage()
     {
         let nLigne = parseInt(event.target.getAttribute('data-ligne'));
@@ -469,13 +470,16 @@
     //------------------------------------------------------------
     //------------------------------------------------------------
     //Fonction devoiler mines :-----------------------------------
-    function minesRevelee(){
+    function minesRevelee()
+    {
         for (let i = 0; i < composants.nbreLignes; i++)
         {
-            for (let j = 0; j < composants.nbreCellules; j++){
-                if(plateau[i][j] == "B"){
-                    let cellule=document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`)
-                    cellule.style.backgroundColor="red";
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                if (plateau[i][j] == "B")
+                {
+                    let cellule = document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`)
+                    cellule.style.backgroundColor = "red";
                 }
             }
         }

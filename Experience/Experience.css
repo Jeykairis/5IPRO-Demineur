@@ -1,6 +1,6 @@
     *
     {
-        background-color: ivory;
+        background-color: bisque;
     }
 
     button
@@ -15,22 +15,31 @@
 
     #table
     {
-        border: 1px solid black;
-        border-collapse: collapse;
-
+        background-color: rgb(128, 128, 128);
     }
 
     td
     {
         width: 35px;
         height: 35px;
-        background-color: grey;
-        border: 1px solid rgb(101, 101, 101);
+        background-color: rgb(128, 128, 128);
         text-align: center;
         font-size: small;
-        border-style: inset;
-        border-width: 4px;
-        border-color: rgb(152, 152, 152);
+        border-style: groove;
+        border-width: 2px;
+        border-color: rgb(172, 172, 172);
+    }
+
+    td:hover
+    {
+        border-color: rgb(130, 130, 130);
+        background-color: rgb(135, 135, 135);
+    }
+
+    td:active
+    {
+        border-color: rgb(92, 92, 92);
+        background-color: rgba(128, 128, 128);
     }
 
     #table
