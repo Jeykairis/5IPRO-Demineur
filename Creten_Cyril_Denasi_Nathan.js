@@ -92,7 +92,7 @@ function creation()
 }
 
 // Première fonction appelée lors de l'enclenchement de sa fonction parente 'creation'
-// Lance la fonction de placement de mine sur le plateau fraîchement créé, autant de fois qu'il y a de nombre
+// Lance la fonction de placement de mine sur le plateau fraîchement créé, autant de fois qu'il y a de mines au total
 // Étage creation(): 1.1
 function minage()
 {
