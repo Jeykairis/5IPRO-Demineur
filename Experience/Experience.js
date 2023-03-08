@@ -46,6 +46,7 @@ function arcom()
     document.querySelector("#setup").style.visibility = "visible";
     document.querySelector("#arcom").style.visibility = "hidden";
     document.querySelector("#conclusion").innerText = "";
+    document.querySelector("#paraminerestant").style.visibility = "hidden";
     //partieStatut = "Nouvel essai";
     document.querySelector("#table").innerHTML = "";
 }
@@ -55,6 +56,7 @@ function creation()
     plateau.length = 0;
     document.querySelector("#setup").style.visibility = "hidden";
     document.querySelector("#arcom").style.visibility = "visible";
+    document.querySelector("#paraminerestant").style.visibility = "visible";
     for (let i = 0; i < composants.nbreLignes; i++)
     {
         plateau[i] = [];
@@ -70,6 +72,7 @@ function creation()
         }
     }
     composants.nbreVictoire = (composants.nbreLignes * composants.nbreCellules) - composants.nbreMines;
+    document.querySelector("#nbreRestant").innerText = calculMine();
     minage();
     plateauHTML();
     revelation();
@@ -140,10 +143,38 @@ function plateauHTML()
             nCellule.setAttribute("data-ligne", i);
             nCellule.setAttribute("data-cellule", j)
             nCellule.addEventListener("click", cliquage);
+            nCellule.addEventListener("contextmenu", e =>
+            {
+                e.preventDefault();
+                marquage();
+            });
             nLigne.appendChild(nCellule);
         }
         table.appendChild(nLigne);
     }
+}
+
+function marquage()
+{
+    let nLigne = parseInt(event.target.getAttribute("data-ligne"));
+    let nCellule = parseInt(event.target.getAttribute("data-cellule"));
+    let celActuelle = event.target;
+    console.log(celActuelle, nLigne, nCellule, plateau[nLigne][nCellule].flag);
+    if (plateau[nLigne][nCellule].statut == "revelee")
+    {
+        return;
+    }
+    if (plateau[nLigne][nCellule].flag == false)
+    {
+        plateau[nLigne][nCellule].flag = true;
+        celActuelle.style.backgroundColor = "green";
+    }
+    else
+    {
+        plateau[nLigne][nCellule].flag = false;
+        celActuelle.style.backgroundColor = "grey";
+    }
+    document.querySelector("#nbreRestant").innerText = calculMine();
 }
 
 function cliquage(event)
@@ -172,7 +203,16 @@ function contagion(nLigne, nCellule)
     }
     let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
     plateau[nLigne][nCellule].statut = "revelee";
-    celActuelle.style.backgroundColor = "beige";
+    if (celActuelle.style.backgroundColor == "green")
+    {
+        plateau[nLigne][nCellule].flag = false;
+        document.querySelector("#nbreRestant").innerText = calculMine();
+        celActuelle.style.backgroundColor = "beige";
+    }
+    else
+    {
+        celActuelle.style.backgroundColor = "beige";
+    }
     if (plateau[nLigne][nCellule].danger > 0)
     {
         celActuelle.innerText = plateau[nLigne][nCellule].danger;
@@ -189,6 +229,29 @@ function contagion(nLigne, nCellule)
         contagion(nLigne + 1, nCellule + 1);
     }
     checkVictoire();
+}
+
+function calculMine()
+{
+    let compteur = 0;
+    for (let i = 0; i < composants.nbreLignes; i++)
+    {
+        for (let j = 0; j < composants.nbreCellules; j++)
+        {
+            if (plateau[i][j].flag == true)
+            {
+                compteur++;
+            }
+        }
+    }
+    if (composants.nbreMines - compteur < 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return (composants.nbreMines - compteur);
+    }
 }
 
 function checkVictoire()
