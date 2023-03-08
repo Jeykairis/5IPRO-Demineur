@@ -2,7 +2,7 @@
 // Déclaration de la variable qui autorise ou non le cliquage sur le plateau
 let partieStatut = false;
 
-// Déclaration de l'array 2d dans laquelle on va stocker les objets de nos cases
+// Déclaration de l'array 2d 'plateau' dans laquelle on va stocker les objets de nos cases
 const plateau = [];
 
 // Déclaration des composants du plateau qui seront souvent référencés dans le reste du code
@@ -91,7 +91,7 @@ function creation()
     console.log(plateau);
 }
 
-// Première fonction appelée lors de l'enclenchement de sa fonction parente 'creation'
+// Première fonction enfant appelée lors de l'enclenchement de sa fonction parente 'creation'
 // Lance la fonction de placement de mine sur le plateau fraîchement créé, autant de fois qu'il y a de mines au total
 // Étage creation(): 1.1
 function minage()
@@ -123,7 +123,7 @@ function placement()
 }
 
 // Fonction de numérotation
-// pour chaque case entourant la case ciblée, on lance la fonction d'incrémentation de danger
+// pour chaque case entourant la case ciblée qui soit dans les confins de l'array 2d plateau, on lance la fonction d'incrémentation de danger
 // Étage creation(): 1.1.1.1
 function numerotation(nLigne, nCellule)
 {
@@ -137,7 +137,7 @@ function numerotation(nLigne, nCellule)
     incrementation(nLigne + 1, nCellule + 1);
 }
 
-// Fonction d'incrémentation de la propriété 'danger' de l'objet correspondant aux coordonnées dans le plateau 2d
+// Fonction d'incrémentation de la propriété 'danger' de l'objet correspondant aux coordonnées dans l'array 2d plateau
 // C'est ce chiffre qui sera imprimé dans les cases 'td' da la table html
 // Étage creation(): 1.1.1.1.1
 function incrementation(nLigne, nCellule)
@@ -157,7 +157,7 @@ function incrementation(nLigne, nCellule)
 }
 
 // Fonction de création de la table HTML
-// Deuxième fonction appelée lors de l'enclenchement de sa fonction parente 'creation'
+// Deuxième fonction enfant appelée lors de l'enclenchement de sa fonction parente 'creation'
 // Pour chaque 'td' créé, on lui ajoute 2 attributs de coordonnée + 2 eventListeners pour les clics gauche et droit
 // La method '.preventDefault()' permet de nous débarrasser du menu contextuel qui apparaît lorsqu'on fait un clic droit
 // Injection de cette cellule 'td' dans une ligne 'tr' qui à son tour sera injectée dans la balise 'table' présente dans l'HTML
@@ -187,7 +187,8 @@ function plateauHTML()
 
 // Fonction mère
 // Fonction de marquage de cases suspectes à l'aide du clic droit qui les repeindra en vert (ou gris)
-// Uniquement applicable sur des cases encore non révélées et leur change la propriété 'flag' de l'objet de l'array 2d correspondant aux coordonnées
+// Uniquement applicable sur des objets correspondants de l'array 2d plateau qui soient encore non révélées
+// Leur switch la propriété 'flag'
 // Une fonction sera appelée à la fin pour calculer le nombre théorique de mines restantes à repérer
 // Étage marquage(): 1
 function marquage()
@@ -239,11 +240,11 @@ function cliquage(event)
 }
 
 // Fonction récursive gérant les cases "safe"
-// Après avoir confirmé que la case sur laquelle fait effet cette fonction existe dans les confins du plateau,
-// La fonction révèle la valeur de la propriété danger se cachant dans l'objet du plateau 2d correspondant
+// Après avoir confirmé que l'objet sur lequel fait effet cette fonction existe bien dans les confins de l'array 2d plateau,
+// La fonction révèle la valeur de la propriété danger
 // Si celui-ci est de 0, cela signifie que la case est vide et n'est pas non plus une bordure de mine,
-// Et donc que cette même fonction se propagera dans toutes les cases entourant l'actuelle
-// En conclusion, la fonction 'checkVictoire()' est appelée pour compter le nombre de cases "safe" restantes à cliquer
+// Et donc que cette même fonction se propagera dans toutes les cases entourant la position de l'objet
+// En conclusion, la fonction 'checkVictoire()' est appelée pour compter le nombre de cases "safe" restantes à cliquer pour gagner
 // Étage cliquage(): 1.1
 function contagion(nLigne, nCellule)
 {
@@ -282,7 +283,7 @@ function contagion(nLigne, nCellule)
 }
 
 // Fonction de calcul théorique de mines restantes dont la valeur sortante est imprimée dans le 'p: <p id="paraminerestant">'
-// Elle passe en revue le tableau 2d en quête d'objets dont leur propriété 'flag == true' et en calcule la récurence dans un compteur
+// Elle passe en revue l'array 2d tableau en quête d'objets dont la propriété 'flag == true' et en calcule la récurence dans un compteur
 // La différence entre le nombre total réel de mines et ce compteur est alors renvoyée comme valeur sortante
 // Dans le cas où cette valeur serait négative, la valeur renvoyée est alors '0'
 // Étage marquage(): 1.1
@@ -311,7 +312,7 @@ function calculMine()
 
 // La fonction pour checker si le joueur remporte la partie
 // Lancée en conclusion de la fonction 'contagion()'
-// Chaque case découverte diminue de 1 un compteur
+// Chaque objet ayant sa propriété 'statut == "revelee"' diminue de 1 un compteur (initialement déclaré ayant comme valeur nbreLignes * nbreCellules - nbreMines)
 // Une fois ce compteur réduit à 0, lance la fonction de révélation des mines sur le terrain et switch l'état de la partie à 'false', ce qui nullifie les clics sur la table HTML
 // Étage cliquage() 1.1.1
 function checkVictoire()
@@ -341,7 +342,7 @@ function defaite()
 }
 
 // Fonction de révélation de position des mines sur la table HTML
-// Appelée soit lors de la victoire/défaite, soit à la fin de l'initialisation du plateau en temps qu'outil de dev
+// Appelée soit lors de la victoire/défaite, soit à la fin de l'initialisation de la table HTML en temps qu'outil de dev
 // Elle repeint les cases correspondantes aux coordonnées de l'array 2d en rouge
 // Étages multiples
 function revelation()
