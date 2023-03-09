@@ -25,38 +25,28 @@ const composants =
     }
 };
 
-// 3 Fonctions de réglage de difficulté, une pour chaque bouton
-function facile()
-{
-    composants.nbreMines = 10;
-    composants.nbreLignes = 8;
-    composants.nbreCellules = 8;
-    refreshInfos();
-}
+composants.nbreLignes = document.querySelector("#sliderLigne").value;
+composants.nbreCellules = document.querySelector("#sliderCellule").value;
+composants.nbreMines = document.querySelector("#sliderMines").value;
 
-function moyen()
+function slider()
 {
-    composants.nbreMines = 15;
-    composants.nbreLignes = 12;
-    composants.nbreCellules = 12;
-    refreshInfos();
-}
-
-function difficile()
-{
-    composants.nbreMines = 20;
-    composants.nbreLignes = 15;
-    composants.nbreCellules = 15;
-    refreshInfos();
-}
-
-// Fonction pour rafraîchir les données affichées à l'écran d'accueil
-// À enclencher à la fin de chaque bouton de difficulté
-function refreshInfos()
-{
-    document.querySelector("#nbreMines").innerText = composants.nbreMines;
+    composants.nbreLignes = document.querySelector("#sliderLigne").value;
+    composants.nbreCellules = document.querySelector("#sliderCellule").value;
+    composants.nbreMines = document.querySelector("#sliderMines").value;
     document.querySelector("#nbreLignes").innerText = composants.nbreLignes;
     document.querySelector("#nbreCol").innerText = composants.nbreCellules;
+    document.querySelector("#nbreMines").innerText = composants.nbreMines;
+}
+
+function refreshInfos(nLigne, nCellule, nMines)
+{
+    document.querySelector("#nbreLignes").innerText = nLigne;
+    document.querySelector("#nbreCol").innerText = nCellule;
+    document.querySelector("#nbreMines").innerText = nMines;
+    document.querySelector("#sliderLigne").value = nLigne;
+    document.querySelector("#sliderCellule").value = nCellule;
+    document.querySelector("#sliderMines").value = nMines;
 }
 
 // Fonction de retour à l'écran d'accueil
@@ -184,6 +174,7 @@ function plateauHTML()
             let nCellule = document.createElement("td");
             nCellule.setAttribute("data-ligne", i);
             nCellule.setAttribute("data-cellule", j)
+            nCellule.setAttribute("class", "plateau");
             nCellule.addEventListener("click", cliquage);
             nCellule.addEventListener("contextmenu", e =>
             {

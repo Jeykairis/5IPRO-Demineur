@@ -12,18 +12,58 @@
 <body>
     <h1>Jeu du démineur</h1>
     <div id="setup">
-        <p>Nombre de lignes : <span id="nbreLignes"></span></p>
-        <p>Nombre de colonnes : <span id="nbreCol"></span></p>
-        <button onclick="facile()">Facile</button>
-        <button onclick="moyen()">Moyen</button>
-        <button onclick="difficile()">Difficile</button>
-        <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
-        <p>Nombre de mines : <span id="nbreMines"></span></p>
+        <table>
+            <tr>
+                <td class="tableRow">
+                    <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+                </td>
+                <td class="tableRow">
+                    <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+                </td>
+                <td class="tableRow">
+                    <p>Nombre de mines : <span id="nbreMines"></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableRow">
+                    <input type="range" min="8" max="15" value="12" class="slider" id="sliderLigne" oninput="slider()">
+                </td>
+                <td class="tableRow">
+                    <input type="range" min="8" max="15" value="12" class="slider" id="sliderCellule"
+                        oninput="slider()">
+                </td>
+                <td class="tableRow">
+                    <input type="range" min="10" max="18" value="12" class="slider" id="sliderMines" oninput="slider()">
+                </td>
+            </tr>
+            <tr>
+                <td class="tableRow" colspan="3">
+                    <button class="difficulte" onclick="refreshInfos(10,10,10)">Facile</button>
+                    <button class="difficulte" onclick="refreshInfos(12,12,12)">Moyen</button>
+                    <button class="difficulte" onclick="refreshInfos(15,15,15)">Difficile</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableRow" colspan="3">
+                    <button id="go" onclick="creation()">GO</button></p>
+                </td>
+            </tr>
+            <tr></tr>
+        </table>
+        <br>
+        <p id="paraminerestant">Mines restantes: <span id="nbreRestant"></span></p>
     </div>
-    <p id="paraminerestant">Mines restantes: <span id="nbreRestant"></span></p>
+    <table>
+        <tr>
+            <td>
+                <p id="conclusion"></p>
+            </td>
+            <td>
+                <button id="arcom" onclick="arcom()">Recommencer ?</button>
+            </td>
+        </tr>
+    </table>
     <table id="table"></table>
-    <p id="conclusion"></p>
-    <button id="arcom" onclick="arcom()">Recommencer ?</button>
     <script src="Creten_Cyril_Denasi_Nathan.js"></script>
 </body>
 
