@@ -41,6 +41,9 @@ function slider()
 
 function refreshInfos(nLigne, nCellule, nMines)
 {
+    composants.nbreLignes = nLigne;
+    composants.nbreCellules = nCellule;
+    composants.nbreMines = nMines;
     document.querySelector("#nbreLignes").innerText = nLigne;
     document.querySelector("#nbreCol").innerText = nCellule;
     document.querySelector("#nbreMines").innerText = nMines;
