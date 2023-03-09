@@ -11,7 +11,18 @@ const composants =
     nbreLignes: 8,
     nbreCellules: 8,
     nbreMines: 10,
-    nbreVictoire: 54
+    nbreVictoire: 54,
+    couleurs:
+    {
+        1: "blue",
+        2: "green",
+        3: "red",
+        4: "pruple",
+        5: "maroon",
+        6: "turquoise",
+        7: "black",
+        8: "grey"
+    }
 };
 
 // 3 Fonctions de réglage de difficulté, une pour chaque bouton
@@ -266,7 +277,9 @@ function contagion(nLigne, nCellule)
     celActuelle.style.backgroundColor = "beige";
     if (plateau[nLigne][nCellule].danger > 0)
     {
-        celActuelle.innerText = plateau[nLigne][nCellule].danger;
+        let chiffre = plateau[nLigne][nCellule].danger;
+        celActuelle.innerText = chiffre;
+        celActuelle.style.color = composants.couleurs[chiffre];
     }
     else
     {
