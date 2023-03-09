@@ -16,6 +16,20 @@
         margin-right: auto;
     }
 
+    #info
+    {
+        color: rgba(210, 250, 140, 0.2);
+        height: 35px;
+        padding-top: 15px;
+        text-align: right;
+        border: 0px solid #FFFFFF;
+    }
+
+    #info:hover
+    {
+        color: rgba(220, 255, 155, 0.6);
+    }
+
     .tableRow
     {
         height: 35px;
@@ -33,13 +47,12 @@
     {
         height: 33px;
         border-radius: 16px;
-        margin-top: 12px;
-        margin-left: 85%;
+        margin-top: 15px;
     }
 
     button
     {
-        color: rgba(220, 255, 155, 0.55);
+        color: rgba(220, 255, 155, 0.549);
         border: 1px solid rgba(220, 255, 155, 0.55);
         border-radius: 6px;
         background-color: rgb(0, 0, 0);
@@ -95,8 +108,17 @@
 
     #arcom
     {
+        color: rgba(220, 255, 155, 0.15);
+        border: 1px solid rgba(220, 255, 155, 0.15);
         visibility: hidden;
         margin-bottom: 2px;
+        margin-right: -50px;
+    }
+
+    #arcom:hover
+    {
+        color: rgba(220, 255, 155, 0.8);
+        border: 1px solid rgba(220, 255, 155, 0.8);
     }
 
     input[type=range]

@@ -17,7 +17,7 @@ const composants =
         1: "blue",
         2: "green",
         3: "red",
-        4: "pruple",
+        4: "purple",
         5: "maroon",
         6: "turquoise",
         7: "black",
@@ -372,4 +372,5 @@ function revelation()
             }
         }
     }
+    console.log(document.querySelector("#arcom"));
 }
