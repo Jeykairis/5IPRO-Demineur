@@ -60,7 +60,7 @@ function arcom()
     document.querySelector("#arcom").style.visibility = "hidden";
     document.querySelector("img").style.display = "none";
     document.querySelector("#conclusion").innerText = "";
-    document.querySelector("#paraminerestant").style.visibility = "hidden";
+    document.querySelector("#paraminerestant").style.display = "none";
     document.querySelector("#table").innerHTML = "";
 }
 
@@ -74,7 +74,7 @@ function creation()
     partieStatut = true;
     document.querySelector("#setup").style.display = "none";
     document.querySelector("#arcom").style.visibility = "visible";
-    document.querySelector("#paraminerestant").style.visibility = "visible";
+    document.querySelector("#paraminerestant").style.display = "unset";
     for (let i = 0; i < composants.nbreLignes; i++)
     {
         plateau[i] = [];
@@ -348,8 +348,7 @@ function defaite()
 {
     console.log("rip");
     document.querySelector("img").style.display = "unset";
-
-    document.querySelector("#paraminerestant").style.visibility = "hidden";
+    document.querySelector("#paraminerestant").style.display = "none";
     document.querySelector("#conclusion").style.visibility = "visible";
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
     revelation();
