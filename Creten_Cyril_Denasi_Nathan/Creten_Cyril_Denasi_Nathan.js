@@ -1,3 +1,4 @@
+document.querySelector("img").style.display = "none";
 
 // Déclaration de la variable qui autorise ou non le cliquage sur le plateau
 let partieStatut = false;
@@ -55,8 +56,9 @@ function refreshInfos(nLigne, nCellule, nMines)
 // Fonction de retour à l'écran d'accueil
 function arcom()
 {
-    document.querySelector("#setup").style.visibility = "visible";
+    document.querySelector("#setup").style.display = "unset";
     document.querySelector("#arcom").style.visibility = "hidden";
+    document.querySelector("img").style.display = "none";
     document.querySelector("#conclusion").innerText = "";
     document.querySelector("#paraminerestant").style.visibility = "hidden";
     document.querySelector("#table").innerHTML = "";
@@ -70,7 +72,7 @@ function creation()
 {
     plateau.length = 0;
     partieStatut = true;
-    document.querySelector("#setup").style.visibility = "hidden";
+    document.querySelector("#setup").style.display = "none";
     document.querySelector("#arcom").style.visibility = "visible";
     document.querySelector("#paraminerestant").style.visibility = "visible";
     for (let i = 0; i < composants.nbreLignes; i++)
@@ -211,12 +213,12 @@ function marquage()
         if (plateau[nLigne][nCellule].flag == false)
         {
             plateau[nLigne][nCellule].flag = true;
-            celActuelle.style.backgroundColor = "green";
+            celActuelle.style.backgroundColor = "rgba(220, 255, 155, 0.8)";
         }
         else
         {
             plateau[nLigne][nCellule].flag = false;
-            celActuelle.style.backgroundColor = "grey";
+            celActuelle.style.backgroundColor = "rgba(220, 255, 155, 0)";
         }
         document.querySelector("#nbreRestant").innerText = calculMine();
     }
@@ -268,8 +270,7 @@ function contagion(nLigne, nCellule)
         plateau[nLigne][nCellule].flag = false;
         document.querySelector("#nbreRestant").innerText = calculMine();
     }
-    celActuelle.style.backgroundColor = "rgba(240, 255, 185, 0.95)";
-    celActuelle.style.borderWidth = "0px";
+    celActuelle.style.backgroundColor = "rgba(220, 235, 185, 0.85)";
     if (plateau[nLigne][nCellule].danger > 0)
     {
         let chiffre = plateau[nLigne][nCellule].danger;
@@ -343,6 +344,7 @@ function checkVictoire()
 function defaite()
 {
     console.log("rip");
+    document.querySelector("img").style.display = "unset";
     document.querySelector("#conclusion").style.visibility = "visible";
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
     revelation();
@@ -368,7 +370,10 @@ function revelation()
                 }
                 else
                 {
-                    celActuelle.style.backgroundColor = "red";
+                    celActuelle.innerText = "💣";
+                    celActuelle.style.borderWidth = "0px";
+                    celActuelle.style.fontSize = "larger";
+                    celActuelle.style.backgroundColor = "rgba(255, 70, 35, 0.85)";
                 }
             }
         }
