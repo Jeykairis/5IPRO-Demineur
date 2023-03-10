@@ -272,7 +272,7 @@ function contagion(nLigne, nCellule)
         plateau[nLigne][nCellule].flag = false;
         document.querySelector("#nbreRestant").innerText = calculMine();
     }
-    celActuelle.style.backgroundColor = "rgba(220, 235, 185, 0.85)";
+    celActuelle.style.backgroundColor = "rgb(220, 235, 185)";
     celActuelle.style.borderColor = "rgba(220, 235, 185, 0)";
     if (plateau[nLigne][nCellule].danger > 0)
     {
@@ -348,7 +348,6 @@ function defaite()
 {
     console.log("rip");
     document.querySelector("img").style.display = "unset";
-
     document.querySelector("#paraminerestant").style.visibility = "hidden";
     document.querySelector("#conclusion").style.visibility = "visible";
     document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
