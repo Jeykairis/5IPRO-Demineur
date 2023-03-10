@@ -161,7 +161,7 @@
     {
         height: 3px;
         cursor: pointer;
-        background: rgba(210, 250, 140, 0.8);
+        background: rgba(210, 250, 140, 0.3);
         border-radius: 9px;
     }
 
@@ -169,7 +169,7 @@
     {
         height: 3px;
         cursor: pointer;
-        background: rgba(210, 250, 140, 0.8);
+        background: rgba(210, 250, 140, 0.3);
         border-radius: 9px;
     }
 
@@ -180,7 +180,7 @@
         width: 10px;
         background-color: black;
         margin-top: -11px;
-        border: 3px solid rgba(220, 255, 160, 0.9);
+        border: 3px solid rgba(223, 255, 187, 0.808);
         border-radius: 4px;
         cursor: pointer;
     }
