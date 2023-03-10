@@ -119,11 +119,6 @@
         background-color: rgb(220, 255, 155);
     }
 
-    #paraminerestant
-    {
-        visibility: hidden;
-    }
-
     #arcom
     {
         color: rgba(220, 255, 155, 0.4);
@@ -139,37 +134,34 @@
         border: 1px solid rgba(220, 255, 155, 0.8);
     }
 
+    input[type=range]:active
+    {
+        border: 1px solid rgba(220, 255, 155, 0.6);
+    }
+
     input[type=range]
     {
         -webkit-appearance: none;
-        width: 80px;
-    }
-
-    .slider
-    {
-        border: 1px solid rgba(220, 255, 155, 0);
+        appearance: none;
+        background: transparent;
+        cursor: pointer;
         padding: 13px;
+        width: 80px;
+        border: 1px solid rgba(220, 255, 155, 0);
         border-radius: 10px;
-    }
-
-    .slider:active
-    {
-        border: 1px solid rgba(220, 255, 155, 0.3);
     }
 
     input[type=range]::-webkit-slider-runnable-track
     {
         height: 3px;
-        cursor: pointer;
-        background: rgba(210, 250, 140, 0.3);
+        background-color: rgba(150, 250, 100, 0.5);
         border-radius: 9px;
     }
 
     input[type=range]::-moz-range-track
     {
         height: 3px;
-        cursor: pointer;
-        background: rgba(210, 250, 140, 0.3);
+        background-color: rgba(150, 250, 100, 0.5);
         border-radius: 9px;
     }
 
@@ -180,9 +172,8 @@
         width: 10px;
         background-color: black;
         margin-top: -11px;
-        border: 3px solid rgba(223, 255, 187, 0.808);
+        border: 3px solid rgba(100, 200, 50, 1);
         border-radius: 4px;
-        cursor: pointer;
     }
 
     input[type=range]::-moz-range-thumb
@@ -192,7 +183,6 @@
         width: 10px;
         background-color: black;
         margin-top: -11px;
-        border: 3px solid #FFFFFF;
+        border: 3px solid rgba(100, 200, 100, 1);
         border-radius: 4px;
-        cursor: pointer;
     }
