@@ -272,8 +272,8 @@ function contagion(nLigne, nCellule)
         plateau[nLigne][nCellule].flag = false;
         document.querySelector("#nbreRestant").innerText = calculMine();
     }
-    celActuelle.style.backgroundColor = "rgb(220, 235, 185)";
-    celActuelle.style.borderColor = "rgba(220, 235, 185, 0)";
+    celActuelle.style.backgroundColor = "rgba(220, 235, 185, 0.85)";
+    celActuelle.style.borderWidth = "0px";
     if (plateau[nLigne][nCellule].danger > 0)
     {
         let chiffre = plateau[nLigne][nCellule].danger;
