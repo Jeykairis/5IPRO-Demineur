@@ -170,6 +170,10 @@ function incrementation(nLigne, nCellule)
 function plateauHTML()
 {
     let table = document.querySelector("#table");
+    table.addEventListener("contextmenu", e =>
+    {
+        e.preventDefault();
+    });
     for (let i = 0; i < composants.nbreLignes; i++)
     {
         let nLigne = document.createElement("tr");
