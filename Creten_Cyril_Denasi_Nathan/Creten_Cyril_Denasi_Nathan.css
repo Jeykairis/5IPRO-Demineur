@@ -10,6 +10,16 @@
         font-family: 'Orbitron', courier, sans-serif;
     }
 
+    img
+    {
+        display: none;
+    }
+
+    #paraminerestant
+    {
+        display: none;
+    }
+
     table
     {
         margin-left: auto;
@@ -172,7 +182,7 @@
         width: 10px;
         background-color: black;
         margin-top: -11px;
-        border: 3px solid rgba(100, 200, 50, 1);
+        border: 3px solid rgb(175, 240, 115);
         border-radius: 4px;
     }
 
@@ -183,6 +193,6 @@
         width: 10px;
         background-color: black;
         margin-top: -11px;
-        border: 3px solid rgba(100, 200, 100, 1);
+        border: 3px solid rgb(175, 240, 115);
         border-radius: 4px;
     }

@@ -1,4 +1,3 @@
-document.querySelector("img").style.display = "none";
 
 // Déclaration de la variable qui autorise ou non le cliquage sur le plateau
 let partieStatut = false;
@@ -267,12 +266,13 @@ function contagion(nLigne, nCellule)
     }
     let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
     plateau[nLigne][nCellule].statut = "revelee";
-    if (celActuelle.style.backgroundColor == "green")
+    if (plateau[nLigne][nCellule].flag == true)
     {
         plateau[nLigne][nCellule].flag = false;
         document.querySelector("#nbreRestant").innerText = calculMine();
     }
     celActuelle.style.backgroundColor = "rgb(150, 150, 150)";
+    celActuelle.style.borderColor = "rgba(220, 255, 155, 0.7)";
     if (plateau[nLigne][nCellule].danger > 0)
     {
         let chiffre = plateau[nLigne][nCellule].danger;
@@ -369,7 +369,8 @@ function revelation()
                 let celActuelle = document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`);
                 if (composants.nbreVictoire == 0)
                 {
-                    celActuelle.style.backgroundColor = "green";
+                    celActuelle.style.backgroundColor = "rgba(175, 225, 115, 0.75)";
+                    celActuelle.style.borderColor = "rgba(255, 0, 0, 0.9)";
                 }
                 else
                 {
