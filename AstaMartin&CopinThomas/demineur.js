@@ -119,50 +119,66 @@ function revealTile() {
 }
 
 function revealTileRecurs(tile) {
+    let tileElement = document.getElementById(tile);
     if (document.getElementById("titre").innerHTML != "Vous avez perdu" && document.getElementById("titre").innerHTML != "Vous avez gagné") {
-        if (document.getElementById(tile).innerHTML == 1) {
-            document.getElementById(tile).style.color = "blue";
+        if (tileElement.innerHTML == 1) {
+            tileElement.style.color = "blue";
         }
-        else if (document.getElementById(tile).innerHTML == 2) {
-            document.getElementById(tile).style.color = "green";
+        else if (tileElement.innerHTML == 2) {
+            tileElement.style.color = "green";
         }
-        else if (document.getElementById(tile).innerHTML == 3) {
-            document.getElementById(tile).style.color = "red";
+        else if (tileElement.innerHTML == 3) {
+            tileElement.style.color = "red";
         }
-        else if (document.getElementById(tile).innerHTML == 4) {
-            document.getElementById(tile).style.color = "navy";
+        else if (tileElement.innerHTML == 4) {
+            tileElement.style.color = "navy";
         }
-        else if (document.getElementById(tile).innerHTML == 5) {
-            document.getElementById(tile).style.color = "brown";
+        else if (tileElement.innerHTML == 5) {
+            tileElement.style.color = "brown";
         }
-        else if (document.getElementById(tile).innerHTML == 6) {
-            document.getElementById(tile).style.color = "teal";
+        else if (tileElement.innerHTML == 6) {
+            tileElement.style.color = "teal";
         }
-        else if (document.getElementById(tile).innerHTML == 7) {
-            document.getElementById(tile).style.color = "black";
+        else if (tileElement.innerHTML == 7) {
+            tileElement.style.color = "black";
         }
-        else if (document.getElementById(tile).innerHTML == 8) {
-            document.getElementById(tile).style.color = "gray";
+        else if (tileElement.innerHTML == 8) {
+            tileElement.style.color = "gray";
         }
-        else if (document.getElementById(tile).innerHTML == 9) {
-            document.getElementById(tile).innerHTML = "💣";
-            document.getElementById(tile).style.fontSize = "16.65px";
+        else if (tileElement.innerHTML == 9) {
+            tileElement.innerHTML = "💣";
+            tileElement.style.fontSize = "16.65px";
             document.getElementById("remainingMines").innerHTML = "Vous avez fait exploser une bombe !"
             document.getElementById("titre").innerHTML = "Vous avez perdu";
         }
-        else if (document.getElementById(tile).innerHTML == 0) {
+        else if (tileElement.innerHTML == 0) {
             let tilePos = tile.substring(3);
-            let yPos = tilePos.substring((tilePos.indexOf(",")) + 1);
-            let xPos = tilePos.substring(0, tilePos.indexOf(","));
-            document.getElementById(tile).style.color = "lightgray";
-            document.getElementById(tile).style.backgroundColor = "lightgray";
+            let yPos = parseInt(tilePos.substring((tilePos.indexOf(",")) + 1));
+            let xPos = parseInt(tilePos.substring(0, tilePos.indexOf(",")));
+            tileElement.style.color = "lightgray";
+            tileElement.style.backgroundColor = "lightgray";
 
-            if (xPos > 0 && document.getElementById("div" + ((parseInt(xPos)) - 1) + "," + parseInt(yPos)).style.color != "lightgray") {
-                revealTileRecurs("div" + ((parseInt(xPos)) - 1) + "," + parseInt(yPos));
+            let upTileId = "div" + (xPos - 1) + "," + yPos;
+            if (xPos > 0 && document.getElementById(upTileId).style.color != "lightgray") {
+                revealTileRecurs(upTileId);
             }
-            if (xPos < document.getElementById(tile).parentNode.childElementCount - 1 &&
-                document.getElementById("div" + ((parseInt(xPos)) + 1) + "," + parseInt(yPos)).style.color != "lightgray") {
-                revealTileRecurs("div" + ((parseInt(xPos)) + 1) + "," + parseInt(yPos));
+            let downTileId = "div" + (xPos + 1) + "," + yPos;
+            if (
+                xPos < tileElement.parentNode.childElementCount - 1 &&
+                document.getElementById(downTileId).style.color != "lightgray"
+            ) {
+                revealTileRecurs(downTileId);
+            }
+            let leftTileId = "div" + xPos + "," + (yPos-1);
+            if (yPos > 0 && document.getElementById(leftTileId).style.color != "lightgray") {
+                revealTileRecurs(leftTileId);
+            }
+            let rightTileId = "div" + xPos + "," + (yPos+1);
+            if (
+                yPos < tileElement.parentNode.childElementCount - 1 &&
+                document.getElementById(rightTileId).style.color != "lightgray"
+            ) {
+                revealTileRecurs(rightTileId);
             }
 
         }
@@ -218,40 +234,3 @@ function dropFlag() {
 }
 
 main();
-
-//if (document.getElementById("titre").innerHTML != "Vous avez perdu" && document.getElementById("titre").innerHTML != "Vous avez gagné") {
-        //if (this.innerHTML == 1) {
-            //this.style.color = "blue";
-        //}
-        //else if (this.innerHTML == 2) {
-            //this.style.color = "green";
-        //}
-        //else if (this.innerHTML == 3) {
-            //this.style.color = "red";
-        //}
-        //else if (this.innerHTML == 4) {
-            //this.style.color = "navy";
-        //}
-        //else if (this.innerHTML == 5) {
-            //this.style.color = "brown";
-        //}
-        //else if (this.innerHTML == 6) {
-            //this.style.color = "teal";
-        //}
-        //else if (this.innerHTML == 7) {
-            //this.style.color = "black";
-        //}
-        //else if (this.innerHTML == 8) {
-            //this.style.color = "gray";
-        //}
-        //else if (this.innerHTML == 0) {
-            //this.style.color = "lightgray";
-            //this.style.backgroundColor = "lightgray";
-        //}
-        //else if (this.innerHTML == 9) {
-            //this.innerHTML = "💣";
-            //this.style.fontSize = "16.65px";
-            //document.getElementById("remainingMines").innerHTML = "Vous avez fait exploser une bombe !"
-            //document.getElementById("titre").innerHTML = "Vous avez perdu";
-        //}
-    //}
