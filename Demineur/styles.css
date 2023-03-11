@@ -1,52 +1,119 @@
 @charset "utf-8";
 
 /* Mise en forme de la grille*/
-body{
-  font-family: "Arial", Verdana, sans-serif;
-  color: #333;
-  background-color:white;
+/* Style pour le corps du document */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-h1{
+/* Style pour la grille de jeu */
+#grille {
+  border-collapse: collapse;
+  margin: 20px auto;
+  width: 80%;
+}
+
+/* Style pour les cases du jeu */
+td {
+  border: 1px solid #ccc;
+  cursor: pointer;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
+}
+
+/* Style pour les cases contenant une bombe */
+.boom {
+  background-color: grey;
+}
+
+/* Style pour les cases contenant un drapeau */
+.flag {
+  background-image: url("drapeau.png");
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
+}
+
+/* Style pour les cases cachées */
+.hidden {
+  display: none;
+}
+
+/* Style pour les boutons */
+button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Style pour les textes */
+h1, li {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px;
+  text-align: center;
+}
+  
+/* Style des cases */
+.case {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  color: inherit; /* Ajout de la propriété pour hériter la couleur de la case */
+}
+
+.grille-cell {
+  background-color: grey; /* couleur de fond par défaut */
+  color: transparent; /* couleur de texte transparente */
+  font-size: 0; /* taille de police à zéro pour cacher le contenu */
   text-align: center;
 }
 
-
-
-
-table {
-    border-collapse: collapse;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-td{ /* couleur de la case*/
-  color:white;
+.grille-cell.clicked {
+  color: black; /* couleur de texte noire */
+  font-size: 16px; /* taille de police normale */
 }
 
-  #grille td {
-    border: 2px solid black;
-    padding: 5px;
-  }
 
-  .boom {
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    border: 1px solid black;
-    float: left;
-    margin-right: -1px;
-    margin-bottom: -1px;
-    cursor: pointer;
-  }
+/* style pour afficher le contenu de la case au click */
+td.boom {
+  background-color: #888;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
 
-  .boom.gris {
-    background-color: red;
-  }
-  
+/* style pour cacher le contenu de la case */
+td.boom span.hidden {
+  display: none;
+}
 
+/* style pour placer un drapeau en cliquant sur la case avec le bouton droit de la souris */
+td.boom.flag {
+  background-image: url("drapeau.png");
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  cursor: pointer;
+}
 
- 
-  
+/* style pour cacher le contenu de la case lorsqu'elle est cliquée avec le bouton droit de la souris */
+td.boom.flag span.hidden {
+  display: none;
+}

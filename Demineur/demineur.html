@@ -2,156 +2,173 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title> Démineurr</title>
+        <title> A garder</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="styles.css" type="text/css" rel="stylesheet">
 	</head>
 
     <body>
-        <h1>Démineur</h1> 
+        <h1>Jeu démineur</h1> 
 
-       
        <li>Souhaitez-vous jouer au Démineur?</li>
         <button id="clickOui" onclick="OUI()">OUI</button>
         <button id="clickNON" onclick="NON()">NON</button>
         
-        <h5>
-            <p>Click Gauche= dévoiler une case</p>
-            <p>Click Droit= placer un drapeau (F)</p>
-        </h5>
+        
 
 
 
  
         <table id="grille">
 
-      
+            <tr> 
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                			
+            </tr>
 
             <tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>						
-            </tr>
-            <tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>						
-            </tr>
-            <tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>					
-            </tr>
-            <tr> <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>				
-            </tr>
-            <tr> <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>					
-            </tr><tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>					
-            </tr>
-            <tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>					
-            </tr><tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>						
-            </tr>
-            <tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>					
-            </tr><tr> 
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>
-                <td><button id="flag" class="boom" onclick="cacherCase()"></button></td>						
-            </tr>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                    
+          </tr>
+
+          <tr> 
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                  
+        </tr>
+
+
+        <tr> 
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+                
+      </tr>
+
+
+      <tr> 
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+              
+    </tr>
+
+    <tr> 
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+      <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+            
+  </tr>
+
+  <tr> 
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+    <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+          
+</tr>
+
+<tr> 
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        
+</tr>
+
+
+<tr> 
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        
+</tr>
+
+
+<tr> 
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+  <td id="flag" class="boom" onclick="cacherCase()"><span class="hidden"></span></td>
+        
+</tr>
+
+
+
+
+
 
 
         </table>
