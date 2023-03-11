@@ -95,6 +95,7 @@
 
     .plateau
     {
+        cursor: default;
         width: 35px;
         height: 35px;
         background-color: rgba(220, 255, 155, 0);
