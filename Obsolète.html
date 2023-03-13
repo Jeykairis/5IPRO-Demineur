@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--version branch 2-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démineur</title>
+    <style>
+        * {
+            background-color: ivory;
+        }
+
+        button {
+            background-color: lightgray;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        #table {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+        }
+
+        td {
+            width: 35px;
+            height: 35px;
+            background-color: grey;
+            border: 1px solid rgb(101, 101, 101);
+            text-align: center;
+            font-size: small;
+            border-style: inset;
+            border-width: 4px;
+            border-color: rgb(152, 152, 152);
+        }
+
+        #table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #arcom {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Jeu du démineur</h1>
+    <div id="setup">
+        <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+        <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+        <button onclick="facile()">Facile</button>
+        <button onclick="moyen()">Moyen</button>
+        <button onclick="difficile()">Difficile</button>
+        <p>Choisi ? <span><button onclick="creation()">GO</button></span></p>
+    </div>
+    <p>Nombre de mines : <span id="nbreMines"></span></p>
+    <table id="table"></table>
+    <p id="conclusion"></p>
+    <button id="arcom">Recommencer ?</button>
+</body>
+
+<script>
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Initialisation des données de construction :---------------
+    const composants =
+    {
+        nbreLignes: 8,
+        nbreCellules: 8,
+        nbreBombes: 10,
+        nbreVictoire: 54
+    };
+
+    const plateau = [];
+    let partieStatut = "";
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Choix de difficulté :--------------------------------------
+
+    function facile()
+    {
+
+        composants.nbreBombes = 10;
+        composants.nbreLignes = 8;
+        composants.nbreCellules = 8;
+        composants.nbreVictoire = 54;
+        displayData();
+    }
+    function moyen()
+    {
+
+        composants.nbreBombes = 15;
+        composants.nbreLignes = 12;
+        composants.nbreCellules = 12;
+        composants.nbreVictoire = 129;
+        displayData();
+    }
+    function difficile()
+    {
+
+        composants.nbreBombes = 20;
+        composants.nbreLignes = 15;
+        composants.nbreCellules = 15;
+        composants.nbreVictoire = 205;
+        displayData();
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Affichage des données :------------------------------------
+
+    function displayData()
+    {
+        document.querySelector("#nbreMines").innerText = composants.nbreBombes;
+        document.querySelector("#nbreLignes").innerText = composants.nbreLignes;
+        document.querySelector("#nbreCol").innerText = composants.nbreCellules;
+        partieStatut = "";
+    }
+
+
+
+    document.querySelector("#arcom").addEventListener("click", recommence);
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Création plateau :-----------------------------------------
+
+    function creation()
+    {
+        document.querySelector("#setup").style.visibility = "hidden";
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            plateau[i] = [];
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                plateau[i][j] = 0;
+            }
+        }
+        etalage();
+        creationPlatHTML();
+        document.querySelector("#arcom").style.visibility = "visible";
+        partieStatut = "Nouvel essai";
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Étalage des mines :----------------------------------------
+
+    function etalage()
+    {
+        for (let i = 0; i < composants.nbreBombes; i++)
+        {
+            placement();
+        }
+        console.table(plateau);
+        numeros();
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction récursive de placement de mine individuelle :-----    
+
+    function placement()
+    {
+        let ligne = Math.floor(Math.random() * composants.nbreLignes);
+        let cellule = Math.floor(Math.random() * composants.nbreCellules);
+        if (plateau[ligne][cellule] == "B")
+        {
+            placement();
+        }
+        else plateau[ligne][cellule] = "B";
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Création homologue plateau HTML :--------------------------
+
+    function creationPlatHTML()
+    {
+        let box = document.querySelector("#table");
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            let ligne = document.createElement("tr");
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                let cellule = document.createElement("td");
+                cellule.setAttribute("data-Ligne", i);
+                cellule.setAttribute("data-Cellule", j);
+                cellule.setAttribute("data-statut", "cachee")
+                cellule.setAttribute("data-flag", "faux")
+                if (plateau[i][j] == "B")
+                {
+                    cellule.setAttribute("data-mine", "true");
+                }
+                else
+                {
+                    cellule.setAttribute("data-mine", "false");
+                }
+                cellule.addEventListener("click", cliquage);
+                ligne.appendChild(cellule);
+                //ajout marqueur de mine
+                cellule.addEventListener("contextmenu", e =>
+                {
+                    e.preventDefault()
+                    marquerMine()
+                }
+                )
+            }
+            box.appendChild(ligne);
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction répartition des numéros :-------------------------
+
+    function numeros()
+    {
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                if (plateau[i][j] == "B")
+                {
+                    let compteurI = 1;
+                    for (let k = i - 1; compteurI <= 3; compteurI++)
+                    {
+                        if (k < 0)
+                        {
+                            k++;
+                            continue;
+                        }
+                        if (k >= composants.nbreLignes)
+                        {
+                            compteurI = 4;
+                            continue;
+                        }
+                        let compteurJ = 1;
+                        for (let l = j - 1; compteurJ <= 3; compteurJ++)
+                        {
+                            if (l < 0)
+                            {
+                                l++;
+                                continue;
+                            }
+                            if (l >= composants.nbreCellules)
+                            {
+                                compteurJ = 4;
+                                continue;
+                            }
+                            if (plateau[k][l] == "B")
+                            {
+                                l++;
+                                continue;
+                            }
+                            else
+                            {
+                                plateau[k][l]++;
+                                l++;
+                            }
+                        }
+                        k++;
+                    }
+                }
+            }
+        }
+        console.table(plateau);
+    }
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction lors du clic sur une cellule :--------------------
+
+    function cliquage()
+    {
+        let nLigne = parseInt(event.target.getAttribute('data-ligne'));
+        let nCellule = parseInt(event.target.getAttribute('data-cellule'));
+        if (event.target.getAttribute("data-mine") == "true" && partieStatut != "terminee")
+        {
+            event.target.style.backgroundColor = "red";
+            defaite();
+        }
+        else if (partieStatut != "terminee")
+        {
+            let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+
+            if (plateau[nLigne][nCellule] > 0)
+            {
+                checkcachee(nLigne, nCellule);
+                event.target.innerText = plateau[nLigne][nCellule];
+            }
+            else
+            {
+                contamination(nLigne, nCellule);
+            }
+        }
+    }
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction récursive de contamination :----------------------
+
+    function contamination(nLigne, nCellule)
+    {
+        if (nLigne < 0 || nLigne == composants.nbreLignes || nCellule < 0 || nCellule == composants.nbreCellules)
+        {
+            return;
+        }
+
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+
+        if (celActuelle.getAttribute("data-statut") == "revelee")
+        {
+            return;
+        }
+
+        checkcachee(nLigne, nCellule);
+
+        if (plateau[nLigne][nCellule] > 0)
+        {
+            celActuelle.innerText = plateau[nLigne][nCellule];
+            return;
+        }
+        else
+        {
+            contamination(nLigne - 1, nCellule - 1);
+            contamination(nLigne - 1, nCellule);
+            contamination(nLigne - 1, nCellule + 1);
+            contamination(nLigne, nCellule - 1);
+            contamination(nLigne, nCellule + 1);
+            contamination(nLigne + 1, nCellule - 1);
+            contamination(nLigne + 1, nCellule);
+            contamination(nLigne + 1, nCellule + 1);
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction checkCachée :-------------------------------------
+
+    function checkcachee(nLigne, nCellule)
+    {
+        let celActuelle = document.querySelector(`[data-ligne="${nLigne}"][data-cellule="${nCellule}"]`);
+        if (celActuelle.getAttribute("data-statut") == "cachee")
+        {
+            celActuelle.setAttribute("data-statut", "revelee");
+            celActuelle.style.backgroundColor = "beige";
+            composants.nbreVictoire--;
+            checkVictoire();
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction marquage de mines :-------------------------------
+
+    function marquerMine()
+    {
+        let estMarquee = event.target.getAttribute("data-flag");
+        let caseStatut = event.target.getAttribute("data-statut");
+        if (estMarquee == "faux" && caseStatut == "cachee" && partieStatut != "terminee")
+        {
+            event.target.style.backgroundColor = "green";
+            event.target.setAttribute("data-flag", "vrai");
+        }
+        else if (estMarquee == "vrai" && caseStatut == "cachee" && partieStatut != "terminee")
+        {
+            event.target.style.backgroundColor = "grey";
+            event.target.setAttribute("data-flag", "faux");
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // condition défaite :-----------------------------------------
+
+    function defaite()
+    {
+        document.querySelector("#conclusion").innerText = "Epstein didn't kill himself !";
+        //partieStatut = "terminee";
+        minesRevelee();
+    }
+
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Condition victoire :---------------------------------------
+
+    function checkVictoire()
+    {
+        if (composants.nbreVictoire == 0)
+        {
+            document.querySelector("#conclusion").innerText = "Victoire !";
+            //partieStatut = "terminee";
+        }
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    // Fonction recommence :--------------------------------------
+
+    function recommence()
+    {
+        document.querySelector("#setup").style.visibility = "visible";
+        document.querySelector("#arcom").style.visibility = "hidden";
+        document.querySelector("#conclusion").innerText = "";
+        //partieStatut = "Nouvel essai";
+        document.querySelector("#table").innerHTML = "";
+    }
+
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    //Fonction devoiler mines :-----------------------------------
+    function minesRevelee()
+    {
+        for (let i = 0; i < composants.nbreLignes; i++)
+        {
+            for (let j = 0; j < composants.nbreCellules; j++)
+            {
+                if (plateau[i][j] == "B")
+                {
+                    let cellule = document.querySelector(`[data-ligne="${i}"][data-cellule="${j}"]`)
+                    cellule.style.backgroundColor = "red";
+                }
+            }
+        }
+
+    }
+</script>
+
+</html>

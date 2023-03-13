@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démineur</title>
+    <link rel="stylesheet" href="Creten_Cyril_Denasi_Nathan.css">
+</head>
+
+<body>
+    <h1>Jeu du démineur</h1>
+    <div id="setup">
+        <table>
+            <tr>
+                <td class="tableRow">
+                    <p>Nombre de lignes : <span id="nbreLignes"></span></p>
+                </td>
+                <td class="tableRow">
+                    <p>Nombre de colonnes : <span id="nbreCol"></span></p>
+                </td>
+                <td class="tableRow">
+                    <p>Nombre de mines : <span id="nbreMines"></span></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="tableRow" colspan="3">
+                    <input type="range" min="8" max="15" value="12" class="slider" id="sliderLigne" oninput="slider()">
+                    <input type="range" min="8" max="15" value="12" class="slider" id="sliderCellule"
+                        oninput="slider()">
+                    <input type="range" min="10" max="18" value="12" class="slider" id="sliderMines" oninput="slider()">
+            </tr>
+            <tr>
+                <td class="tableRow" colspan="3">
+                    <button class="difficulte" onclick="refreshInfos(10,10,10)">Facile</button>
+                    <button class="difficulte" onclick="refreshInfos(12,12,12)">Moyen</button>
+                    <button class="difficulte" onclick="refreshInfos(15,15,15)">Difficile</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p id="info">Clic droit pour marquer une mine potentielle</p>
+                </td>
+                <td class="tableRow">
+                    <button id="go" onclick="creation()">GO</button></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <img src="soon.jpg" alt="soon" height="340px">
+    <p id="paraminerestant">Mines restantes: <span id="nbreRestant"></span></p>
+    <table>
+        <tr>
+            <td>
+                <p id="conclusion"></p>
+            </td>
+            <td>
+                <button id="arcom" onclick="arcom()">Recommencer ?</button>
+            </td>
+        </tr>
+    </table>
+    <table id="table"></table>
+    <script src="Creten_Cyril_Denasi_Nathan.js"></script>
+</body>
+
+</html>
