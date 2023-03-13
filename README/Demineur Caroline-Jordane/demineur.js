@@ -149,7 +149,3 @@ function endGame() {
 	if (!cases[i].classList.contains("drapeau")) {
 	cases[i].classList.add("decouverte");
 	}
-	}
-	}
-	
-
