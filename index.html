@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <link rel="stylesheet" href="style.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Minesweeper</title>
+</head>
+<body>
+     <div><h1>Minesweeper</h1></div>
+     <div class="container" id="container">
+          <div class="level"><button id="level" class="easy">Easy</button><button id="level" class="medium">Medium</button><button id="level" class="hard">Hard</button><button id="level" class="extreme">Extreme</button></div>
+     </div>
+     <div >
+          <div class="smiley" ><button id="smileyButton" hidden><img id="smileyImage" src="images/smileyHappy.png"></button></div>
+          <table cellspacing=0 class="mineTab" id="mineTab">
+               <tbody id="mainTab">
+               </tbody>
+          </table>
+          <div id="winText"></div>
+     </div>
+        <script src="scripts.js"></script>
+</body>
+</html>

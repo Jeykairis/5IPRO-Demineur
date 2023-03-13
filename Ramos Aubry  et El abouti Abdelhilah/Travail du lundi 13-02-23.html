@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Démineur</title>
+  <style>
+    /* Votre code CSS ici */
+    body {
+      background-image: url('https://fr.web.img6.acsta.net/r_654_368/newsv7/21/06/16/17/04/5448290.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px black;
+      margin-top: 100px;
+    }
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+    td {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid black;
+      background-color: #ddd;
+    }
+    .revealed {
+      background-color: white;
+    }
+    .flagged {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <!-- Votre code HTML et JavaScript ici -->
+  <table id="game-board"></table>
+  <script>
+    // Définit les constantes de jeu pour le démineur
+    const ROWS = 10; // nombre de lignes du démineur
+    const COLS = 10; // nombre de colonnes du démineur
+    const MINES = 15; // nombre de mines
+
+    // Initialise le tableau de jeu avec des zéros
+    let board = []; // tableau de jeu
+    for (let i = 0; i < ROWS; i++) {
+      board[i] = [];
+      for (let j = 0; j < COLS; j++) {
+        board[i][j] = 0;
+      }
+    }
+
+    // Place les bombes dans le tableau de jeu
+    let bombsPlaced = 0;
+    while (bombsPlaced < MINES) {
+      let row = Math.floor(Math.random() * ROWS);
+      let col = Math.floor(Math.random() * COLS);
+      if (board[row][col] === 0) {
+        board[row][col] = '💣';
+        bombsPlaced++;
+      }
+    }
+
+    // Calcule les valeurs de chaque case
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        if (board[i][j] !== '💣') {let count = 0;
+          if (i > 0 && j > 0 && board[i - 1][j - 1] === '💣') count++;
+          if (i > 0 && board[i - 1][j] === '💣') count++;
+          if (i > 0 && j < COLS - 1 && board[i - 1][j + 1] === '💣') count++;
+          if (j > 0 && board[i][j - 1] === '💣') count++;
+          if (j < COLS - 1 && board[i][j + 1] === '💣') count++;
+          if (i < ROWS - 1 && j > 0 && board[i + 1][j - 1] === '💣') count++;
+          if (i < ROWS - 1 && board[i + 1][j] === '💣') count++;
+          if (i < ROWS - 1 && j < COLS - 1 && board[i + 1][j + 1] === '💣') count++;
+          board[i][j] = count;
+}
+}
+}  
+// Fonction pour gérer le clic sur une case
+function handleClick(event) {
+  let row = parseInt(event.target.getAttribute('data-row'));
+  let col = parseInt(event.target.getAttribute('data-col'));
+  let cell = event.target;
+
+  // Ignore le clic si la case a déjà été révélée ou marquée
+  if (cell.classList.contains('revealed') || cell.classList.contains('flagged')) {
+    return;
+  }
+
+  if (board[row][col] === '💣') {
+    // La case est une bombe, fin du jeu
+    cell.textContent = '💣';
+    alert('Vous avez perdu !');
+  } else {
+    // La case ne contient pas de bombe, révèle les cases adjacentes sans bombe
+    revealAdjacentCells(row, col);
+  }
+}
+
+// Ajoute un événement pour le clic droit sur chaque case de la grille
+let cells = document.querySelectorAll('td');
+cells.forEach(cell => {
+  cell.addEventListener('mousedown', handleClick);
+});
+
+// Fonction pour révéler les cases adjacentes à une case vide
+function revealAdjacentCells(row, col) {
+  if (row < 0 || row >= ROWS || col < 0 || col >= COLS) {
+    // La case est en dehors des limites du tableau, fin de la récursion
+    return;
+  }
+  let cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+  if (cell.classList.contains('revealed') || cell.classList.contains('flagged')) {
+    // La case a déjà été révélée ou marquée, fin de la récursion
+    return;
+  }
+  cell.classList.add('revealed');
+  if (board[row][col] === 0) {
+    // La case est vide, continue de révéler les cases adjacentes
+    revealAdjacentCells(row - 1, col - 1);
+    revealAdjacentCells(row - 1, col);
+    revealAdjacentCells(row - 1, col + 1);
+    revealAdjacentCells(row, col - 1);
+    revealAdjacentCells(row, col + 1);
+    revealAdjacentCells(row + 1, col - 1);
+    revealAdjacentCells(row + 1, col);
+    revealAdjacentCells(row + 1, col + 1);
+  } else {
+    // La case contient un nombre, affiche le nombre
+    cell.textContent = board[row][col];
+  }
+
+// Ajoute l'écouteur d'événement pour le clic droit sur chaque case
+td.addEventListener('contextmenu', handleRightClick);
+}
+
+// Fonction pour gérer le clic droit sur une case
+function handleRightClick(event) {
+event.preventDefault(); // Empêche le menu contextuel de s'afficher
+let row = parseInt(event.target.getAttribute('data-row'));
+let col = parseInt(event.target.getAttribute('data-col'));
+let cell = event.target;
+
+// Ignore le clic si la case a déjà été révélée
+if (cell.classList.contains('revealed')) {
+return;
+}
+
+if (cell.classList.contains('flagged')) {
+// La case est déjà marquée, enlève le drapeau
+cell.classList.remove('flagged');
+cell.textContent = '';
+} else {
+// La case n'est pas marquée, ajoute le drapeau
+cell.classList.add('flagged');
+cell.textContent = '🚩';
+}
+}
+
+// Initialise le tableau de jeu HTML
+let gameBoard = document.getElementById('game-board');
+for (let i = 0; i < ROWS; i++) {
+let tr = document.createElement('tr');
+for (let j = 0; j < COLS; j++) {
+let td = document.createElement('td');
+td.setAttribute('data-row', i);
+td.setAttribute('data-col', j);
+td.addEventListener('click', handleClick);
+td.addEventListener('contextmenu', handleRightClick);
+tr.appendChild(td);
+}
+gameBoard.appendChild(tr);
+}
+  </script>
+</body>
+</html>
