@@ -1,0 +1,80 @@
+body {
+    margin:0;
+    box-sizing: border-box;
+    background-color: #ECF0F1 ;
+}
+.title {
+  color: black;
+  text-align: center;
+  font-family: Montserrat, sans-serif ;
+
+}
+.container {
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .grid {
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #82E0AA;
+    border: 1px solid #070706;
+    margin-bottom: 10px;
+  }
+  
+  div {
+    font-size: 25px;
+    text-align: center;
+    font-family: 'Montserrat, sans-serif;
+  
+  }
+  .valid {
+    height: 40px;
+    width: 40px;
+    border: 1px solid;
+    border-color: #2E4053;
+    box-sizing: border-box;
+  }
+  
+  .checked {
+    height: 40px;
+    width: 40px;
+    border: 2px solid;
+    background-color: #FDFEFE;
+    border-color: #2E4053 ;
+    box-sizing: border-box;
+  }
+  
+  .bomb {
+    height: 40px;
+    width: 40px;
+    border: 1px solid;
+    border-color: #2E4053;
+    box-sizing: border-box;
+  }
+  
+  .one {
+    color:  #8E44AD;
+  }
+  
+  .two {
+    color: #F1C40F;
+  }
+  
+  .three {
+    color: #B03A2E;
+  }
+  
+  .four{
+    color: #2ECC71;
+  }
+  
+  #result {
+    margin-top: 5px;
+    color: #e76346;
+  }
