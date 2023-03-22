@@ -1,0 +1,236 @@
+<div id="board"></div>
+
+<script>
+  // Give me steps to create a mineswepper game
+  // 1. Create a table with 10 rows and 10 columns
+  // 2. Create a function to generate random numbers
+  // 3. Create a function to generate mines
+  // 4. Create a function to generate numbers
+  // 5. Create a function to generate the board
+  // 6. Create a function to reveal the board
+  // 7. Create a function to reveal the cell
+  // 8. Create a function to reveal the cell around
+
+  // Create a table with 10 rows and 10 columns
+  const ROWS = 10;
+  const COLS = 10;
+  const MINES = 10;
+
+  let board = [];
+  for (let i = 0; i < ROWS; i++) {
+    board[i] = [];
+    for (let j = 0; j < COLS; j++) {
+      board[i][j] = 0;
+    }
+  }
+
+  // Create a function to generate random numbers
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Create a function to generate mines
+  function generateMines() {
+    let minesPlaced = 0;
+    while (minesPlaced < MINES) {
+      let row = random(0, ROWS - 1);
+      let col = random(0, COLS - 1);
+      if (board[row][col] === 0) {
+        board[row][col] = '💣';
+        minesPlaced++;
+      }
+    }
+  }
+
+  // Create a function to generate numbers
+  function generateNumbers() {
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        if (board[i][j] !== '💣') {
+          let count = 0;
+          if (i > 0 && j > 0 && board[i - 1][j - 1] === '💣') count++;
+          if (i > 0 && board[i - 1][j] === '💣') count++;
+          if (i > 0 && j < COLS - 1 && board[i - 1][j + 1] === '💣') count++;
+          if (j > 0 && board[i][j - 1] === '💣') count++;
+          if (j < COLS - 1 && board[i][j + 1] === '💣') count++;
+          if (i < ROWS - 1 && j > 0 && board[i + 1][j - 1] === '💣') count++;
+          if (i < ROWS - 1 && board[i + 1][j] === '💣') count++;
+          if (i < ROWS - 1 && j < COLS - 1 && board[i + 1][j + 1] === '💣') count++;
+          board[i][j] = count;
+        }
+      }
+    }
+  }
+
+  // Create a function to generate the board
+  function generateBoard() {
+    generateMines();
+    generateNumbers();
+  }
+
+  // Create a function to reveal the board
+  function revealBoard() {
+    for (let i = 0; i < ROWS; i++) {
+      let row = document.createElement('div');
+      row.classList.add('row');
+      for (let j = 0; j < COLS; j++) {
+        let cell = document.createElement('div');
+        cell.classList.add('cell');
+        cell.setAttribute('data-row', i);
+        cell.setAttribute('data-col', j);
+        cell.addEventListener('click', revealCell);
+        row.appendChild(cell);
+      }
+      document.getElementById('board').appendChild(row);
+    }
+  }
+
+  // Create a function to reveal the cell
+  function revealCell() {
+    let row = this.getAttribute('data-row');
+    let col = this.getAttribute('data-col');
+    reveal(row, col);
+  }
+
+  // Create a function to get a cell by attributes
+  function getCell(row, col) {
+    return document.querySelector('[data-row="' + row + '"][data-col="' + col + '"]');
+  }
+
+  function reveal(row, col) {
+    if (row < 0 || row >= ROWS || col < 0 || col >= COLS) {
+      return;
+    }
+    if (getCell(row, col).classList.contains('revealed')) {
+      return;
+    }
+
+    var cell = getCell(row, col)
+
+    if (board[row][col] === '💣') {
+      cell.innerHTML = '💣';
+      displayMines();
+      alert('Game Over');
+      removeEventListeners();
+    } else {
+      cell.innerHTML = board[row][col];
+      cell.classList.add('revealed');
+      revealCellAround(row, col);
+
+      checkGameOver();
+    }
+  }
+
+  // Reveal the cell around
+  function revealCellAround(row, col) {
+    if (board[row][col] === '💣')
+      return;
+    if (board[row][col] !== 0) {
+      return;
+    }
+
+    row = +row;
+    col = +col;
+
+    reveal(row - 1, col - 1);
+    reveal(row - 1, col);
+    reveal(row - 1, col + 1);
+    reveal(row, col - 1);
+    reveal(row, col + 1);
+    reveal(row + 1, col - 1);
+    reveal(row + 1, col);
+    reveal(row + 1, col + 1);
+  }
+
+  // Create a function to display mines
+  function displayMines() {
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        if (board[i][j] === '💣') {
+          document.querySelector('[data-row="' + i + '"][data-col="' + j + '"]').innerHTML = '💣';
+        }
+      }
+    }
+  }
+
+  // Add a flag and remove it if it already exists
+  function addFlag(e) {
+    e.preventDefault();
+
+    // Ensure the cell is not revealed
+    if (this.classList.contains('revealed'))
+      return;
+
+    let row = this.getAttribute('data-row');
+    let col = this.getAttribute('data-col');
+    if (this.innerHTML === '🚩') {
+      this.innerHTML = '';
+    } else {
+      this.innerHTML = '🚩';
+    }
+  }
+
+  // Add an event listener to the right click to call addFlag()
+  function addFlagEvents() {
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        document.querySelector('[data-row="' + i + '"][data-col="' + j + '"]').addEventListener('contextmenu', addFlag);
+      }
+    }
+  }
+
+  let winned = false;
+  // Create a function to check if the game is over when only mines are left not revealed
+  function checkGameOver() {
+    if (winned == true)
+      return;
+
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        if (board[i][j] !== '💣' && !document.querySelector('[data-row="' + i + '"][data-col="' + j + '"]').classList.contains('revealed')) {
+          return;
+        }
+      }
+    }
+    winned = true;
+    alert('You Win');
+    removeEventListeners();
+    return;
+  }
+
+  // Remove all event listeners
+  function removeEventListeners() {
+    for (let i = 0; i < ROWS; i++) {
+      for (let j = 0; j < COLS; j++) {
+        document.querySelector('[data-row="' + i + '"][data-col="' + j + '"]').removeEventListener('click', revealCell);
+        document.querySelector('[data-row="' + i + '"][data-col="' + j + '"]').removeEventListener('contextmenu', addFlag);
+      }
+    }
+  }
+
+  // Generate the board
+  generateBoard();
+  revealBoard();
+  addFlagEvents();
+</script>
+
+<!-- create required css classes -->
+<style>
+  .row {
+    display: flex;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .cell.revealed {
+    background: #ccc;
+  }
+</style>
